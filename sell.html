@@ -8,6 +8,8 @@
 <body>
 <div id="title">
 	<h1>Your Market</h1>
+	<a href="connexion.html" title="Connexion"><button class="buttonConnex">Connexion</button></a>
+	<a href="cart.html" title="Cart"><button class="buttonCart">Cart</button></a>
 </div>
 
 <hr>
@@ -21,7 +23,17 @@
 <h2>Sell an item :</h2>
 <div id="content">
 	<div id="sellDesc">
-		<button onclick="uImage()">Upload Image</button><br><br>
+		<form method="post" enctype="multipart/form-data">
+			<div>
+				<label for="file">Select an image for your product :</label>
+		   		<input type="file" id="file" name="file">
+		 	</div>
+		 	<div>
+		   		<button>Send</button>
+		 	</div>
+		</form>
+
+		<br><br>
 		Description :<br>
 		<TEXTAREA name="Description" rows=8 cols=100 wrap></TEXTAREA><br>
 	</div>

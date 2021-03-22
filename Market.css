@@ -24,7 +24,10 @@ h3{
   text-shadow: 3px 3px #DCDCDC; 
 }
 
-#nav {
+#nav img {
+  height: 5%;
+  width: 5%;
+  margin-right: 5px;
 }
 
 #footer { 
@@ -195,12 +198,16 @@ h3{
   grid-gap: 5px 1em;
 }
 
-img {
+#car img {
    border: 6px double white;
    border-color: black;
    margin-top:40px;
-   object-position: 100px 50px;
-   
+}
+
+#cloth img {
+   border: 6px double white;
+   border-color: black;
+   margin-top:40px;
 }
 
 #objPos{
@@ -241,6 +248,7 @@ img {
 
 #content {
   margin-left: 50px;
+  margin-right: 50px;
 }
 
 #right {
