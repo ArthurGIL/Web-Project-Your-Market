@@ -187,7 +187,7 @@ function getAllItems()
 
             while ($row = $result->fetch_assoc()) {
 
-                echo "l'id de l'item : " . $row["iditem"] . "<br>";
+
 
                 $itemRow = array($row["iditem"],
                     $row["name"],
@@ -196,14 +196,11 @@ function getAllItems()
 
 
                 array_push($_SESSION["item"], $itemRow);
-                echo count($_SESSION["item"]);
+
 
             }
 
-            foreach ($_SESSION['item'] as $itemSelected) {
-                print_r($itemSelected[3]);
-                echo "<br>";
-            }
+
 
 
         }
@@ -245,7 +242,7 @@ function getAllUsers()
 
             while ($row = $result->fetch_assoc()) {
 
-                echo "l'id de l'user : " . $row["iduser"] . "<br>";
+
 
                 $itemRow = array($row["iduser"],
                     $row["name"],
@@ -256,14 +253,10 @@ function getAllUsers()
 
 
                 array_push($_SESSION["user"], $itemRow);
-                echo count($_SESSION["user"]);
+
 
             }
 
-            foreach ($_SESSION['user'] as $itemSelected) {
-                print_r($itemSelected[3]);
-                echo "<br>";
-            }
 
 
         }
@@ -273,6 +266,71 @@ function getAllUsers()
     }
 }
 
+
+if (isset($_GET["itemID"])){
+    $idItem = intval($_GET["itemID"]);
+    deleteItem($idItem);
+}
+
+if (isset($_GET["UserId"])){
+    $UserId = intval($_GET["UserId"]);
+    deleteUser($UserId);
+}
+
+
+
+
+function deleteItem($idItemChoosen)
+{
+
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Delete from item where iditem = ? ;");
+        $statement->bind_param("i", $idItemChoosen);
+        $statement->execute();
+        header('Location:home.php');
+
+    }
+}
+
+function deleteUser($User)
+{
+
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Delete from user where iduser = ? ;");
+        $statement->bind_param("i", $User);
+        $statement->execute();
+        header('Location:home.php');
+
+    }
+}
 
 ?>
 
