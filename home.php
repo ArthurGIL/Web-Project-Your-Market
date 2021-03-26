@@ -1,3 +1,18 @@
+<?php
+require 'test_cookies.php';
+
+
+/*session_start();
+
+$_SESSION["item"] = [["blabla", "blabla"]];
+$test = array("test", "test");
+array_push($_SESSION["item"], $test);
+echo $_SESSION["item"][0][0];
+echo count($_SESSION["item"] );*/
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,11 +47,30 @@
 <br>
 
 <h2>About <i>Your Market ©</i></h2>
+
+<?php
+getAllItems();
+
+foreach ($_SESSION['item'] as $itemSelected) {
+    echo '<p>' . $itemSelected[1].'
+	</p>';
+}
+
+
+?>
 <div id="content">
-	<p>Liahozco aochalcalc cazcma caoc oacoazcaocamcacpajcpazjcpajzcp azuc achoazcaoch aichazchaca ac aacaochaiochao zicha zohcaoiczhahcaoicha oazhoahcaochaoizchaozc oachzaochao.
-	Jvzepmvçzvzuvpuzvuzevuzv zvuzvuzepvuzpvuz vzvzuv zevzoemv uzoveu zevzv.
-	Apjvpervoev.
-	</p>
+
+
+    <?php
+    getAllUsers();
+
+    foreach ($_SESSION['user'] as $itemSelected) {
+        echo '<p>' . $itemSelected[1].'
+	</p>';
+    }
+
+
+    ?>
 </div>
 
 <br>
