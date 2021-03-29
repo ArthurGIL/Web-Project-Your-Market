@@ -1,4 +1,3 @@
-<<<<<<< refs/remotes/origin/main
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -27,10 +26,23 @@
 </div>
 
 <hr>
+<?php
 
+if (isset($_COOKIE["error"])){
+    print ("<h2>You are already in the database</h2>");
+    setcookie("error", 0, time()-3600);
+    //header('Location:crAccount.php');
+}
+if (isset($_COOKIE["errorConnection"])){
+    print ("<h2>Wrong email or password, or create an account</h2>");
+    setcookie("errorConnection", 0, time()-3600);
+    //header('Location:crAccount.php');
+}
+
+?>
 <h2>Connect to you account</h2>
 <div id="content">
-    <form action="connexion.php" method="post">
+    <form action="test_cookies.php" method="post">
         <br>
         Your Name : <input type="text" name="name">
         <br><br>
@@ -38,9 +50,9 @@
         <br><br>
         Your Password : <input type="Password" name="psw">
         <br><br>
-        <input type="submit" value="Connect" class="button4">
+        <input type="submit" name="Connect" value="Connect" class="button4">
     </form>
-
+    <br>
     <div id="right">
         <a href="crAccount.php" title="crAccount">
             <button class="button2">Create an account</button>
@@ -50,7 +62,7 @@
 
 
 <?php
-
+/*
 $name = $_POST ["name"];
 $mail = $_POST ["mail"];
 $psw = $_POST ["psw"];
@@ -87,13 +99,14 @@ if ($mysqli->connect_error) {
 
         setcookie("seller", $row["seller"], time() + 3600);
         setcookie("admin", $row["admin"], time() + 3600);
-
+        session_start();
+        $_SESSION['user'] = "user";
 
     }
 
     $mysqli->close();
 }
-?>
+*/ ?>
 
 
 <br>
@@ -103,18 +116,12 @@ if ($mysqli->connect_error) {
 
 
 <div>
-    <?php
-    echo $_COOKIE["name"];
-    echo $_COOKIE["email"];
-    echo $_COOKIE["psw"];
-    echo $_COOKIE["admin"];
 
-    ?>
 </div>
 </body>
 </html>
 <!--header('Location:home.php');-->
-
+<!--
 =======
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -165,7 +172,7 @@ if ($mysqli->connect_error) {
   Connexion
 </div>
 
-  <?php //PHP Code
+  <?php /*//PHP Code
     if (array_key_exists('Connect', $_POST)) {
       $name = $_POST["name"];
       $mail = $_POST["mail"];
@@ -199,9 +206,10 @@ if ($mysqli->connect_error) {
         $mysqli->close();
       }
     }
-  ?>
+  */ ?>
 
 </body>
 </html> 
  
 >>>>>>> Dissociation NonConnecté/Buyer/Seller/Admin
+-->

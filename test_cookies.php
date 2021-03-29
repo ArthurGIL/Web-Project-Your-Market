@@ -64,14 +64,14 @@ if (array_key_exists('submitAccount', $_POST)) {
                 "name" => $row["name"],
                 "email" => $row["email"],
                 "psw" => $row["password"],
-                "seller" => $row["admin"],
+                "seller" => $row["seller"],
                 "admin" => $row["admin"]
             ];
 
-            header('Location:home-buyer.php');
+            header('Location:connexion.php');
 
             $mysqli->close();
-            header('Location:home-buyer.php');
+
         }
 
 
@@ -113,7 +113,7 @@ if (array_key_exists('Connect', $_POST)) {
 
         $result = $statement->get_result();
 
-        echo "number of row    " . $result->num_rows;
+
         $row = $result->fetch_assoc();
         if ($result->num_rows > 0) {
             // output data of each row
@@ -124,7 +124,7 @@ if (array_key_exists('Connect', $_POST)) {
                 "name" => $row["name"],
                 "email" => $row["email"],
                 "psw" => $row["password"],
-                "seller" => $row["admin"],
+                "seller" => $row["seller"],
                 "admin" => $row["admin"]
             ];
 
@@ -267,6 +267,89 @@ function getAllUsers()
 }
 
 
+function getCarItems()
+{
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Select * from item where type = 'car';");
+        $statement->execute();
+        $result = $statement->get_result();
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+
+            $_SESSION["item"] = [];
+
+            while ($row = $result->fetch_assoc()) {
+
+                $itemRow = array($row["iditem"],
+                    $row["name"],
+                    $row["description"],
+                    $row["price"]);
+
+                array_push($_SESSION["item"], $itemRow);
+            }
+        } else {
+            $_SESSION["item"] = [];
+        }
+        $mysqli->close();
+    }
+}
+
+function getClothItems()
+{
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Select * from item where Type = 'cloth';");
+        $statement->execute();
+        $result = $statement->get_result();
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+
+            $_SESSION["item"] = [];
+
+            while ($row = $result->fetch_assoc()) {
+
+                $itemRow = array($row["iditem"],
+                    $row["name"],
+                    $row["description"],
+                    $row["price"]);
+
+                array_push($_SESSION["item"], $itemRow);
+            }
+        }
+        else {
+            $_SESSION["item"] = [];
+        }
+        $mysqli->close();
+    }
+}
+
 if (isset($_GET["itemID"])){
     $idItem = intval($_GET["itemID"]);
     deleteItem($idItem);
@@ -301,6 +384,7 @@ function deleteItem($idItemChoosen)
         $statement = $mysqli->prepare("Delete from item where iditem = ? ;");
         $statement->bind_param("i", $idItemChoosen);
         $statement->execute();
+        $_SESSION["item"] = [];
         header('Location:home.php');
 
     }
@@ -327,10 +411,22 @@ function deleteUser($User)
         $statement = $mysqli->prepare("Delete from user where iduser = ? ;");
         $statement->bind_param("i", $User);
         $statement->execute();
+        $_SESSION["user"] = [];
         header('Location:home.php');
+
 
     }
 }
+
+
+if (isset($_GET["deco"])){
+    $deco = intval($_GET["deco"]);
+    if($deco==1){
+        $_SESSION["user"] = [];
+    }
+    header("Location:home/**/.php");
+}
+
 
 ?>
 

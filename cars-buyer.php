@@ -6,6 +6,10 @@
 </head>
 
 <body>
+<?php
+	require 'test_cookies.php';
+?>
+
 <div id="title">
 	<h1>Your Market</h1>
 </div>
@@ -32,41 +36,19 @@
 </div>
 
 <div id="grid_container">
-	<div id="car">
-		<img id="objPos" src="citroen-AX.jpg" length=200 width=200><br><br>
-		<i id="carName">Citroen AX</i><br><br>
-		<a href="details-buyer.php" title="Car Details"><button class="button2">More Details</button></a>
-	</div>
+	<?php getCarItems(); ?>
 
-	<div id="car">
-		<img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
-		<i id="carName">Peugeot 208</i><br><br>
-		<a href="details-buyer.php" title="Car Details"><button class="button2">More Details</button></a>
-	</div>
+	<?php foreach ($_SESSION['item'] as $itemSelected) : ?>
 
-	<div id="car">
-		<img id="objPos" src="ford-focus-3.jpg" length=200 width=200><br><br>
-		<i id="carName">Ford Focus 3</i><br><br>
-		<a href="details-buyer.php" title="Car Details"><button class="button2">More Details</button></a>
+	<div id="item">
+	    <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
+		<?= $itemSelected[1] ?><br>
+		<?= $itemSelected[3] ?><br><br>
+		<a href="details-admin.php" title="Car Details">
+			<button class="button2">More Details</button>
+		</a>
 	</div>
-
-	<div id="car">
-		<img id="objPos" src="audi-a3-sportback.jpg" length=200 width=200><br><br>
-		<i id="carName">Audi A3 Sportback</i><br><br>
-		<a href="details-buyer.php" title="Car Details"><button class="button2">More Details</button></a>
-	</div>
-
-	<div id="car">
-		<img id="objPos" src="volkswagen-golf.jpg" length=200 width=200><br><br>
-		<i id="carName">Volkswagen Golf</i><br><br>
-		<a href="details-buyer.php" title="Car Details"><button class="button2">More Details</button></a>
-	</div>
-
-	<div id="car">
-		<img id="objPos" src="toyota-aygo.jpg" length=200 width=200><br><br>
-		<i id="carName">Toyota Aygo</i><br><br>
-		<a href="details-buyer.php" title="Car Details"><button class="button2">More Details</button></a>
-	</div>
+	<?php endforeach; ?>
 </div>
 
 <br>

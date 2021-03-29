@@ -1,3 +1,10 @@
+
+<?php
+
+session_start();
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +34,9 @@
 <h2>Your Account :</h2>
 <div id="content">
 	<div id="account">
-		<b id="aFName">Fistname : <input type="text" name="fName" readonly></b><br><br>
-		<b id="aLName">Lastname : <input type="text" name="lName" readonly></b><br><br>
-		<b id="aMail">E-mail : <input type="E-mail" name="eMail" readonly></b><br><br>
+		<b id="aFName">Fistname : <?= $_SESSION["user"]["name"]  ?> <input type="text" name="fName" readonly></b><br><br>
+		<b id="aLName">Lastname : <?= $_SESSION["user"]["name"]  ?> <input type="text" name="lName" readonly></b><br><br>
+		<b id="aMail">E-mail : <?= $_SESSION["user"]["psw"]  ?>  <input type="E-mail" name="eMail" readonly></b><br><br>
 		<b id="aPay">Payement : <input type="text" name="ePay" readonly></b>
 	</div>
 </div>
