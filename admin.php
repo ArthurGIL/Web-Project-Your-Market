@@ -33,25 +33,30 @@
 	<div id="container">
 		<?php getAllUsers(); ?>
 
-		<?php foreach ($_SESSION['user'] as $itemSelected) : ?>
 
-	    <div id="containerInfo" style="background: palegoldenrod">
-	        <b>User id : </b><?= $itemSelected[0] ?>
-	        <br>
-	        <b>Name : </b><?= $itemSelected[1] ?>
-	        <br>
-	        <b>Email : </b><?= $itemSelected[2] ?>
-	        <br>
-	        <b>Password : </b><?= $itemSelected[3] ?>
-	        <br>
-	        <b>Seller : </b><?= $itemSelected[4] ?>
 
-	        <form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
-	            <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
-	        </form>
-	    </div>
 
-		<?php endforeach; ?>
+        <?php foreach ($_SESSION['allUser'] as $itemSelected) : ?>
+
+        <div id="containerInfo" style="background: palegoldenrod">
+            <b>User id : </b><?= $itemSelected[0] ?>
+            <br>
+            <b>Name : </b><?= $itemSelected[1] ?>
+            <br>
+            <b>Email : </b><?= $itemSelected[2] ?>
+            <br>
+            <b>Password : </b><?= $itemSelected[3] ?>
+            <br>
+            <b>Seller : </b><?= $itemSelected[4] ?>
+
+            <form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
+                <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+            </form>
+        </div>
+
+        <?php endforeach; ?>
+
+
 	</div>
 </div>
 

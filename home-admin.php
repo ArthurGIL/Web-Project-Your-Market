@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION["user"]) && !$_SESSION["user"]["admin"] == 1 ){
-    header("Location:connexion.php");
+    header("Location:connexion.php?errorUrl=1");
 }
 
 

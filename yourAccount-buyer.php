@@ -30,13 +30,17 @@ session_start();
 
 <h2>Your Account :</h2>
 <div id="content">
-	<div id="account">
-		<b id="aFName">Fistname : <input type="text" name="fName" readonly></b><br><br>
-		<b id="aLName">Lastname : <input type="text" name="lName" readonly></b><br><br>
-		<b id="aMail">E-mail : <input type="E-mail" name="eMail" readonly></b><br><br>
-		<b id="aPay">Payement : <input type="text" name="ePay" readonly></b>
-	</div>
+    <div id="account">
+        <b id="aFName">Fistname : <input type="text" name="fName" readonly></b><br><br>
+        <b id="aLName">Lastname : <input type="text" name="lName" readonly></b><br><br>
+        <b id="aMail">E-mail : <input type="E-mail" name="eMail" readonly></b><br><br>
+        <b id="aPay">Payement : <input type="text" name="ePay" readonly></b>
+    </div>
+    <div id="right">
+        <a href="beSeller.php" title="beSeller"><button class="button2">Become a seller</button></a>
+    </div>
 </div>
+
 
 <br>
 <div id="footer">

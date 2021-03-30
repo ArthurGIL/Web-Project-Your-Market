@@ -27,7 +27,9 @@
 <div id="content">
 	You agree to ...<br>
 	<br>
-	<button class="button4">Confirm</button>
+
+    <a href="test_cookies.php?beSeller=1" title="beSeller"><button class="button4">Confirm</button></a>
+
 </div>
 
 <br>

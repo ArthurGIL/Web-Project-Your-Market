@@ -15,7 +15,7 @@
 </div>
 <div id="sub"><i>- Cars</i></div>
 <div id="optButtons">
-	<a href="yourAccount-seller.php" title="YourAccount"><button class="buttonAccount">Your Account</button></a>
+	<a href="yourAccount-buyer.php" title="YourAccount"><button class="buttonAccount">Your Account</button></a>
 	<a href="cart-buyer.php" title="Cart"><button class="buttonCart">Cart</button></a>
 </div>
 

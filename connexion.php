@@ -39,16 +39,22 @@ if (isset($_COOKIE["errorConnection"])){
     //header('Location:crAccount.php');
 }
 
+if (isset($_GET["errorUrl"])){
+    print ("<h2>You are not allowed to change the url, or connect</h2>");
+    setcookie("errorConnection", 0, time()-3600);
+    //header('Location:crAccount.php');
+}
+
 ?>
 <h2>Connect to you account</h2>
 <div id="content">
     <form action="test_cookies.php" method="post">
         <br>
-        Your Name : <input type="text" name="name">
+        Your Name : <input type="text" name="name" >
         <br><br>
         Your E-mail : <input type="e-mail" name="mail">
         <br><br>
-        Your Password : <input type="Password" name="psw">
+        Your Password : <input type="Password" name="psw" >
         <br><br>
         <input type="submit" name="Connect" value="Connect" class="button4">
     </form>

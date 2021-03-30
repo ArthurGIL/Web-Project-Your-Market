@@ -23,7 +23,7 @@
 
 <div id="nav">
 	<a href="home-seller.php" title="Home"><button class="button">Home</button></a>
-	<a href="cars.php" title="Cars"><button class="button">Cars</button></a>
+	<a href="cars-seller.php" title="Cars"><button class="button">Cars</button></a>
 	<a href="clothing-seller.php" title="Clothing"><button class="button">Clothing</button></a>
 	<a href="contact-seller.php" title="To contact us"><button class="button">To contact us</button></a>
 </div>

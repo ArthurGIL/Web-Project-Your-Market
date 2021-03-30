@@ -237,7 +237,7 @@ function getAllUsers()
             // output data of each row
 
 
-            $_SESSION["user"] = [];
+            $_SESSION["allUser"] = [];
 
 
             while ($row = $result->fetch_assoc()) {
@@ -252,7 +252,7 @@ function getAllUsers()
                     $row["admin"]);
 
 
-                array_push($_SESSION["user"], $itemRow);
+                array_push($_SESSION["allUser"], $itemRow);
 
 
             }
@@ -427,6 +427,32 @@ if (isset($_GET["deco"])){
     header("Location:home/**/.php");
 }
 
+if (isset($_GET["beSeller"])){
+    $seller = intval($_GET["beSeller"]);
+    if($seller==1){
+        becomeSeller();
+    }
+    header("Location:home-seller.php");
+}
+
+
+function becomeSeller(){
+
+    $idUserConnected = $_SESSION["user"]["iduser"];
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+    $statement = $mysqli->prepare("UPDATE `db_test`.`user` SET `seller` = '1' WHERE (`iduser` = ?);");
+
+    $statement->bind_param("i", $idUserConnected);
+    $statement->execute();
+}
 
 ?>
 
