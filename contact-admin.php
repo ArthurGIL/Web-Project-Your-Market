@@ -35,28 +35,29 @@
 
 <h2>Contact Us</h2>
 <div id="content">
-	<form action=""> 
-	<ul>
-		User Name:<br>
-		<input type="text" name="userId"> <br>
-		<br>
-		
-		Password:<br>
-		<input type="password" name="passwd"> <br>
-		<br>
-		
-		E-mail:<br>
-		<input type="mail" name="email"> <br>
-		<br>
+    <form action="test_cookies.php?contact=admin" method="post">
+        <ul>
+            User Name:<br>
+            <input type="text" name="userId" required> <br>
+            <br>
 
-		Commentary :<br>
-		<TEXTAREA name="Comments" rows=8 cols=40 wrap></TEXTAREA> <br>
-		<br>
+            Object:<br>
+            <input type="text" name="object" required> <br>
+            <br>
 
-		<button class="button4">Send</button>
-		<button class="button4">Reset</button>
-	</ul>
-	</form>
+            E-mail:<br>
+            <input type="mail" name="email" required> <br>
+            <br>
+
+            Message :<br>
+            <TEXTAREA name="Comments" rows=8 cols=40  required></TEXTAREA>
+            <br>
+            <br>
+
+            <button class="button4">Send</button>
+            <button class="button4">Reset</button>
+        </ul>
+    </form>
 </div>
 
 <br>

@@ -416,7 +416,7 @@ if (isset($_GET["deco"])) {
     if ($deco == 1) {
         $_SESSION["user"] = [];
     }
-    header("Location:home/**/.php");
+    header("Location:home.php");
 }
 
 if (isset($_GET["beSeller"])) {
@@ -481,8 +481,7 @@ function getSellingItems()
 
                 array_push($_SESSION["item"], $itemRow);
             }
-        }
-        else {
+        } else {
             $_SESSION["item"] = [];
         }
         $mysqli->close();
@@ -490,9 +489,9 @@ function getSellingItems()
 }
 
 
-getAuctionSeller();
 function getAuctionSeller()
 {
+    var_dump($_SESSION["user"]);
     $idUserConnected = $_SESSION["user"]["iduser"];
     $user = 'root';
     $password = ''; //To be completed if you have set a password to root
@@ -514,7 +513,6 @@ ON  auction.idSeller = item.idUserSeller  and auction.idBuyer = user.iduser and 
     $result = $statement->get_result();
 
 
-
     if ($result->num_rows > 0) {
         // output data of each row
 
@@ -530,7 +528,6 @@ ON  auction.idSeller = item.idUserSeller  and auction.idBuyer = user.iduser and 
 
             array_push($_SESSION["itemAuction"], $itemAuction);
         }
-
 
 
     } else {
@@ -563,7 +560,6 @@ ON  auction.idSeller = item.idUserSeller  and auction.idSeller = user.iduser and
     $result = $statement->get_result();
 
 
-
     if ($result->num_rows > 0) {
         // output data of each row
 
@@ -579,7 +575,6 @@ ON  auction.idSeller = item.idUserSeller  and auction.idSeller = user.iduser and
 
             array_push($_SESSION["itemAuction"], $itemAuction);
         }
-
 
 
     } else {
@@ -607,6 +602,67 @@ ON  auction.idSeller = item.idUserSeller  and auction.idSeller = user.iduser and
     </div>
 
 <?php endforeach; ?>
+
+
+<?php
+
+if (isset($_GET["contact"])) {
+        contactQuery();
+}
+
+function contactQuery()
+{
+    $name = $_POST ["userId"];
+    $mail = $_POST ["email"];
+    $object = $_POST ["object"];
+    $message = $_POST ["Comments"];
+
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+
+    } else {
+
+        $statement = $mysqli->prepare("INSERT INTO contact (`user_name`, `email`,`object`,  `message`) VALUES (?,?,?, ?);");
+        $statement->bind_param("ssss", $name, $mail, $object, $message);
+        $statement->execute();
+
+        switch ($_GET["contact"]){
+            case "admin":
+                header("Location:home-admin.php");
+                break;
+            case "buyer":
+                header("Location:home-buyer.php");
+                break;
+            case "seller":
+                header("Location:home-seller.php");
+                break;
+            case "home":
+                header("Location:home.php");
+                break;
+            default:
+                break;
+        }
+
+
+
+        $mysqli->close();
+
+
+    }
+}
+
+
+?>
 
 
 

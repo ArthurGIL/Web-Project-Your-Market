@@ -1,16 +1,5 @@
 <?php
 require 'test_cookies.php';
-
-
-/*session_start();
-
-$_SESSION["item"] = [["blabla", "blabla"]];
-$test = array("test", "test");
-array_push($_SESSION["item"], $test);
-echo $_SESSION["item"][0][0];
-echo count($_SESSION["item"] );*/
-
-
 ?>
 
 <!DOCTYPE html>
@@ -53,67 +42,6 @@ echo count($_SESSION["item"] );*/
 
 <h2>About <i>Your Market ©</i></h2>
 
-<?php
-getAllItems();
-
-?>
-
-
-
-<?php foreach ($_SESSION['item'] as $itemSelected) : ?>
-
-
-<div style="background: palevioletred">
-
-    item id : <?= $itemSelected[0] ?>
-    <br>
-    Name : <?= $itemSelected[1] ?>
-    <br>
-    Descritpion :  <?= $itemSelected[2] ?>
-    <br>
-    Price :           <?= $itemSelected[3] ?>
-    <br>
-
-    <form action="test_cookies.php?itemID=<?=$itemSelected[0]?>" method="post">
-
-        <input type="submit" name="deleteItem" value="Delete Item">
-
-    </form>
-
-</div>
-
-<?= "<br>" ?>
-
-<?php endforeach; ?>
-
-<?php
-getAllUsers();
-
-
-?>
-
-<?php foreach ($_SESSION['user'] as $itemSelected) : ?>
-    <div style="background: palegoldenrod">
-
-        User id : <?= $itemSelected[0] ?>
-        <br>
-        Name :<?= $itemSelected[1] ?>
-        <br>
-        Email :<?= $itemSelected[2] ?>
-        <br>
-        Password :<?= $itemSelected[3] ?>
-        <br>
-        is he a seller ? : <?= $itemSelected[4] ?>
-
-
-        <form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
-
-            <input type="submit" name="deleteUser" value="Delete Item">
-
-        </form>
-    </div>
-    <?= "<br>" ?>
-<?php endforeach; ?>
 
 <div id="content">
 
