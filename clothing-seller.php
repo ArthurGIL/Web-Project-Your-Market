@@ -32,7 +32,7 @@
 
 <br>
 <div id="sell">
-	<a href="sell-seller.php" title="Sell"><button class="button4">Sell</button></a>
+	<a href="sell-seller.php?type=clothe" title="Sell"><button class="button4">Sell</button></a>
 </div>
 
 <div id="grid_container">

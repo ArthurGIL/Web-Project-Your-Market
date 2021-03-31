@@ -23,7 +23,7 @@
 
 <div id="nav">
 	<a href="home-seller.php" title="Home"><button class="button">Home</button></a>
-	<a href="car-seller.php" title="Cars"><button class="button">Cars</button></a>
+	<a href="cars-seller.php" title="Cars"><button class="button">Cars</button></a>
 	<a href="clothing-seller.php" title="Clothing"><button class="button">Clothing</button></a>
 	<a href="contact-seller.php" title="To contact us"><button class="button">To contact us</button></a>
 </div>
@@ -32,7 +32,7 @@
 
 <br>
 <div id="sell">
-	<a href="sell-seller.php" title="Sell"><button class="button4">Sell</button></a>
+	<a href="sell-seller.php?type=car" title="Sell"><button class="button4">Sell</button></a>
 </div>
 
 <div id="grid_container">

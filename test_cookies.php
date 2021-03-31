@@ -188,7 +188,6 @@ function getAllItems()
             while ($row = $result->fetch_assoc()) {
 
 
-
                 $itemRow = array($row["iditem"],
                     $row["name"],
                     $row["description"],
@@ -199,8 +198,6 @@ function getAllItems()
 
 
             }
-
-
 
 
         }
@@ -243,7 +240,6 @@ function getAllUsers()
             while ($row = $result->fetch_assoc()) {
 
 
-
                 $itemRow = array($row["iduser"],
                     $row["name"],
                     $row["email"],
@@ -256,7 +252,6 @@ function getAllUsers()
 
 
             }
-
 
 
         }
@@ -342,25 +337,22 @@ function getClothItems()
 
                 array_push($_SESSION["item"], $itemRow);
             }
-        }
-        else {
+        } else {
             $_SESSION["item"] = [];
         }
         $mysqli->close();
     }
 }
 
-if (isset($_GET["itemID"])){
+if (isset($_GET["itemID"])) {
     $idItem = intval($_GET["itemID"]);
     deleteItem($idItem);
 }
 
-if (isset($_GET["UserId"])){
+if (isset($_GET["UserId"])) {
     $UserId = intval($_GET["UserId"]);
     deleteUser($UserId);
 }
-
-
 
 
 function deleteItem($idItemChoosen)
@@ -419,24 +411,25 @@ function deleteUser($User)
 }
 
 
-if (isset($_GET["deco"])){
+if (isset($_GET["deco"])) {
     $deco = intval($_GET["deco"]);
-    if($deco==1){
+    if ($deco == 1) {
         $_SESSION["user"] = [];
     }
     header("Location:home/**/.php");
 }
 
-if (isset($_GET["beSeller"])){
+if (isset($_GET["beSeller"])) {
     $seller = intval($_GET["beSeller"]);
-    if($seller==1){
+    if ($seller == 1) {
         becomeSeller();
     }
     header("Location:home-seller.php");
 }
 
 
-function becomeSeller(){
+function becomeSeller()
+{
 
     $idUserConnected = $_SESSION["user"]["iduser"];
     $user = 'root';
@@ -453,8 +446,123 @@ function becomeSeller(){
     $statement->bind_param("i", $idUserConnected);
     $statement->execute();
 }
+getAuctionSeller();
+function getAuctionSeller()
+{
+    $idUserConnected = $_SESSION["user"]["iduser"];
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+    $statement = $mysqli->prepare("SELECT  distinct user.name as username ,  auction.auction_price, item.*
+FROM user 
+INNER JOIN item 
+inner join auction 
+ON  auction.idSeller = item.idUserSeller  and auction.idBuyer = user.iduser and item.idUserSeller = ?;");
+
+    $statement->bind_param("i", $idUserConnected);
+    $statement->execute();
+    $result = $statement->get_result();
+
+
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+
+        $_SESSION["itemAuction"] = [];
+
+        while ($row = $result->fetch_assoc()) {
+
+            $itemAuction = array($row["username"],
+                $row["auction_price"],
+                $row["description"],
+                $row["price"],
+                $row["type"]);
+
+            array_push($_SESSION["itemAuction"], $itemAuction);
+        }
+
+
+
+    } else {
+        $_SESSION["itemAuction"] = [];
+    }
+    $mysqli->close();
+}
+
+
+function getAuctionBuyer()
+{
+    $idUserConnected = $_SESSION["user"]["iduser"];
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+    $statement = $mysqli->prepare("SELECT  distinct user.name ,  auction.auction_price, item.*
+FROM user 
+INNER JOIN item 
+inner join auction 
+ON  auction.idSeller = item.idUserSeller  and auction.idSeller = user.iduser and auction.idBuyer = ?;");
+
+    $statement->bind_param("i", $idUserConnected);
+    $statement->execute();
+    $result = $statement->get_result();
+
+
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+
+        $_SESSION["itemAuction"] = [];
+
+        while ($row = $result->fetch_assoc()) {
+
+            $itemAuction = array($row["name"],
+                $row["auction_price"],
+                $row["description"],
+                $row["price"],
+                $row["type"]);
+
+            array_push($_SESSION["itemAuction"], $itemAuction);
+        }
+
+
+
+    } else {
+        $_SESSION["itemAuction"] = [];
+    }
+    $mysqli->close();
+}
 
 ?>
+
+<?php foreach ($_SESSION['itemAuction'] as $itemSelected) : ?>
+
+    <div id="containerInfo" style="background: palegoldenrod">
+        <b>User id : </b><?= $itemSelected[0] ?>
+        <br>
+        <b>Name : </b><?= $itemSelected[1] ?>
+        <br>
+        <b>Email : </b><?= $itemSelected[2] ?>
+        <br>
+        <b>Password : </b><?= $itemSelected[3] ?>
+        <br>
+        <b>Seller : </b><?= $itemSelected[4] ?>
+
+
+    </div>
+
+<?php endforeach; ?>
 
 
 

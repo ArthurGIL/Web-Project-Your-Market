@@ -27,9 +27,13 @@
 <div id="content">
 	<div id="sellDesc">
 		<form method="post" enctype="multipart/form-data">
+            <p>Name of the article :</p>
+            <input type="text" name="itemName">
+            <br><br>
 			<div>
 				<label for="file">Select an image for your product :</label>
-		   		<input type="file" id="file" name="file">
+                <br>
+		   		<input type="file" id="file" name="file" value="Select a file">
 		 	</div>
 		 	<div>
 		   		<button>Send</button>
@@ -65,8 +69,7 @@
 
 	<div id="bestOffer">
 		<h3>Best Offer :</h3>
-		<label for="number2">Number of days :</label>
-		<input type="number" id="number3" name="bOffer" min="0">
+
 		<br><br>
 		<button class="button3">Accept</button>
 	</div>

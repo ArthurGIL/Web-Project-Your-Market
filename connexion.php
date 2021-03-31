@@ -50,11 +50,11 @@ if (isset($_GET["errorUrl"])){
 <div id="content">
     <form action="test_cookies.php" method="post">
         <br>
-        Your Name : <input type="text" name="name" >
+        Your Name : <input type="text" name="name" required="required">
         <br><br>
-        Your E-mail : <input type="e-mail" name="mail">
+        Your E-mail : <input type="e-mail" name="mail"required="required">
         <br><br>
-        Your Password : <input type="Password" name="psw" >
+        Your Password : <input type="Password"  name="psw"required="required" >
         <br><br>
         <input type="submit" name="Connect" value="Connect" class="button4">
     </form>
