@@ -5,9 +5,14 @@
 <head>
     <title>Your Market - CreateAccount</title>
     <link rel="stylesheet" href="Market.css" type="text/css"/>
+    <script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "90%" 
+        }
+    </script>
 </head>
 
-<body>
+<body onload="zoom()">
 <div id="title">
     <h1>Your Market</h1>
 </div>
@@ -54,8 +59,9 @@
 </div>
 
 <br>
+<br>
 <div id="footer">
-    Connexion
+    <div id="footText">Connexion</div>
 </div>
 
 

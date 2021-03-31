@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION["user"]) && !$_SESSION["user"]["admin"] == 1 ){
-    header("Location:connexion.php?errorUrl=1");
+    header("Location:connexion.php");
 }
 
 
@@ -14,9 +14,14 @@ if (isset($_SESSION["user"]) && !$_SESSION["user"]["admin"] == 1 ){
 <head>
 	<title>Your Market</title>
 	<link rel="stylesheet" href="Market.css" type="text/css"/>
+	<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "90%" 
+        }
+	</script>
 </head>
 
-<body>
+<body onload="zoom()">
 <div id="title">
 	<h1>Your Market</h1>
 </div>
@@ -52,8 +57,13 @@ if (isset($_SESSION["user"]) && !$_SESSION["user"]["admin"] == 1 ){
 </div>
 
 <br>
+<br>
 <div id="footer">
-	Admin
+	<div id="footText">Admin</div>
+	<div id="footBlock"></div>
+	<div id="Deconnexion">
+		<a href="test_cookies.php?deco=1" title="Deconnexion"><button class="buttonDeco">Deconnexion</button></a>
+	</div>
 </div>
 
 	<?php

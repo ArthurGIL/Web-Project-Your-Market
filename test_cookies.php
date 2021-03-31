@@ -446,6 +446,50 @@ function becomeSeller()
     $statement->bind_param("i", $idUserConnected);
     $statement->execute();
 }
+
+function getSellingItems()
+{
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+    $idUserConnected = $_SESSION["user"]["iduser"];
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Select * from item where idUserSeller = $idUserConnected;");
+        $statement->execute();
+        $result = $statement->get_result();
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+
+            $_SESSION["item"] = [];
+
+            while ($row = $result->fetch_assoc()) {
+
+                $itemRow = array($row["iditem"],
+                    $row["name"],
+                    $row["description"],
+                    $row["price"]);
+
+                array_push($_SESSION["item"], $itemRow);
+            }
+        }
+        else {
+            $_SESSION["item"] = [];
+        }
+        $mysqli->close();
+    }
+}
+
+
 getAuctionSeller();
 function getAuctionSeller()
 {
@@ -460,9 +504,9 @@ function getAuctionSeller()
     $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
 
     $statement = $mysqli->prepare("SELECT  distinct user.name as username ,  auction.auction_price, item.*
-FROM user 
-INNER JOIN item 
-inner join auction 
+FROM user
+INNER JOIN item
+inner join auction
 ON  auction.idSeller = item.idUserSeller  and auction.idBuyer = user.iduser and item.idUserSeller = ?;");
 
     $statement->bind_param("i", $idUserConnected);

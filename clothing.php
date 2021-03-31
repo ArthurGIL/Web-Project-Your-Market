@@ -3,9 +3,14 @@
 <head>
 	<title>Your Market - Clothing</title>
 	<link rel="stylesheet" href="Market.css" type="text/css" />
+	<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "90%" 
+        }
+	</script>
 </head>
 
-<body>
+<body onload="zoom()">
 <?php
 	require 'test_cookies.php';
 ?>
@@ -52,8 +57,9 @@
 </div>
 
 <br>
+<br>
 <div id="footer">
-	Connexion
+	<div id="footText">Connexion</div>
 </div>
 
 	<?php

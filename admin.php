@@ -1,116 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Your Market - Admin</title>
-	<link rel="stylesheet" href="Market.css" type="text/css" />
+    <title>Your Market - Admin</title>
+    <link rel="stylesheet" href="Market.css" type="text/css" />
+    <script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "90%"
+        }
+    </script>
 </head>
 
-<body>
+<body onload="zoom()">
 <?php
-	require 'test_cookies.php';
+require 'test_cookies.php';
 ?>
 
 <div id="title">
-	<h1>Your Market</h1>
+    <h1>Your Market</h1>
 </div>
 <div id="sub"><i>- Admin</i></div>
 <div id="optButtons">
-	<a href="admin.php" title="Admin"><button class="buttonAdmin">Admin</button></a>
-	<a href="yourAccount-admin.php" title="YourAccount"><button class="buttonAccount">Your Account</button></a>
-	<a href="cart-admin.php" title="Cart"><button class="buttonCart">Cart</button></a>
+    <a href="admin.php" title="Admin"><button class="buttonAdmin">Admin</button></a>
+    <a href="yourAccount-admin.php" title="YourAccount"><button class="buttonAccount">Your Account</button></a>
+    <a href="cart-admin.php" title="Cart"><button class="buttonCart">Cart</button></a>
 </div>
 
 <hr>
 
 <div id="nav">
-	<a href="home-admin.php" title="Home"><button class="buttonBack">< Back</button></a>
+    <a href="home-admin.php" title="Home"><button class="buttonBack">< Back</button></a>
 </div>
 
 <hr>
 
 <h2>User List :</h2>
 <div id="content">
-	<div id="container">
-		<?php getAllUsers(); ?>
+    <div id="container">
+        <?php getAllUsers(); ?>
 
+        <?php foreach ($_SESSION['user'] as $itemSelected) : ?>
 
+            <div id="containerInfo" style="background: palegoldenrod">
+                <b>User id : </b><?= $itemSelected[0] ?>
+                <br>
+                <b>Name : </b><?= $itemSelected[1] ?>
+                <br>
+                <b>Email : </b><?= $itemSelected[2] ?>
+                <br>
+                <b>Password : </b><?= $itemSelected[3] ?>
+                <br>
+                <b>Seller : </b><?= $itemSelected[4] ?>
 
-
-        <?php foreach ($_SESSION['allUser'] as $itemSelected) : ?>
-
-        <div id="containerInfo" style="background: palegoldenrod">
-            <b>User id : </b><?= $itemSelected[0] ?>
-            <br>
-            <b>Name : </b><?= $itemSelected[1] ?>
-            <br>
-            <b>Email : </b><?= $itemSelected[2] ?>
-            <br>
-            <b>Password : </b><?= $itemSelected[3] ?>
-            <br>
-            <b>Seller : </b><?= $itemSelected[4] ?>
-
-            <form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
-                <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
-            </form>
-        </div>
+                <form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
+                    <div id="delItemAdmin">
+                        <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+                    </div>
+                </form>
+            </div>
 
         <?php endforeach; ?>
-
-
-	</div>
+    </div>
 </div>
 
 <br>
 <h2>Item List :</h2>
 <div id="content">
-	<div id="container">
-		<?php getAllItems(); ?>
+    <div id="container">
+        <?php getAllItems(); ?>
 
-		<?php foreach ($_SESSION['item'] as $itemSelected) : ?>
+        <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
 
-		<div id="containerInfo" style="background: lightblue">
-		    <b>Item id : </b><?= $itemSelected[0] ?>
-		    <br>
-		    <b>Name : </b><?= $itemSelected[1] ?>
-		    <br>
-		    <b>Descritpion : </b><?= $itemSelected[2] ?>
-		    <br>
-		    <b>Price : </b><?= $itemSelected[3] ?>
-		    <br>
+            <div id="containerInfo" style="background: lightblue">
+                <b>Item id : </b><?= $itemSelected[0] ?>
+                <br>
+                <b>Name : </b><?= $itemSelected[1] ?>
+                <br>
+                <b>Descritpion : </b><?= $itemSelected[2] ?>
+                <br>
+                <b>Price : </b><?= $itemSelected[3] ?>
+                <br>
 
-		    <form action="test_cookies.php?itemID=<?=$itemSelected[0]?>" method="post">
-		        <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
-		    </form>
-		</div>
+                <form action="test_cookies.php?itemID=<?=$itemSelected[0]?>" method="post">
+                    <div id="delItemAdmin">
+                        <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+                    </div>
+                </form>
+            </div>
 
-		<?php endforeach; ?>
-	</div>
+        <?php endforeach; ?>
+    </div>
 </div>
 
 <br>
 <h2>Aunctions ongoing :</h2>
 <div id="content">
-	<div id="container">
+    <div id="container">
 
-	</div>
+    </div>
 </div>
 
 <br>
 <h2>Best Offers ongoing :</h2>
 <div id="content">
-	<div id="container">
-		
-	</div>
+    <div id="container">
+
+    </div>
 </div>
 
 <br>
+<br>
 <div id="footer">
-	Admin
+    <div id="footText">Admin</div>
+    <div id="footBlock"></div>
+    <div id="Deconnexion">
+        <a href="test_cookies.php?deco=1" title="Deconnexion"><button class="buttonDeco">Deconnexion</button></a>
+    </div>
 </div>
 
-	<?php
-	
-	?>
+<?php
+
+?>
 
 </body>
 </html>
