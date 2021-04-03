@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="Market.css" type="text/css" />
 	<script type="text/javascript">
         function zoom() {
-            document.body.style.zoom = "90%" 
+            document.body.style.zoom = "90%"
         }
 	</script>
 </head>
@@ -49,9 +49,9 @@
 	    <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
 		<?= $itemSelected[1] ?><br>
 		<?= $itemSelected[3] ?><br><br>
-		<a href="details-admin.php" title="Car Details">
-			<button class="button2">More Details</button>
-		</a>
+        <a href="details.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
+            <button class="button2">More Details</button>
+        </a>
 	</div>
 	<?php endforeach; ?>
 </div>
@@ -63,7 +63,7 @@
 </div>
 
 	<?php
-	
+
 	?>
 
 </body>

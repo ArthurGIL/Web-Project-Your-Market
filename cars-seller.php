@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,8 +51,15 @@ require 'test_cookies.php';
             <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
             <?= $itemSelected[1] ?><br>
             <?= $itemSelected[3] ?><br><br>
-            <a href="details-admin.php" title="Car Details">
+            <a href="details-seller.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
                 <button class="button2">More Details</button>
+            </a>
+            <br>
+            <br>
+            <br>
+
+            <a href="test_cookies.php?idItemCart=<?= $itemSelected[0] ?>&idUserCart=<?= $_SESSION["user"]["iduser"] ?>&idUserSeller=<?= $itemSelected[4] ?>" title="Car Details">
+                <button class="button2">Add to cart</button>
             </a>
         </div>
     <?php endforeach; ?>

@@ -1,3 +1,10 @@
+<?php
+require "test_cookies.php";
+if (isset($_GET["idItemDetail"])) {
+    getItemDetails($_GET["idItemDetail"]);
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,15 +38,26 @@
 <br>
 
 <div id="content">
-	-----image-----
-	<br>
-	-----prix-----
-	<br>
+    <h3>Name : <?= $_SESSION["itemDetail"] [1] ?></h3>
+    -----image-----
+    <br>
+    <h1>Price : </h1>
+    <?= $_SESSION["itemDetail"] [3] ?> Euros
+    <br>
 </div>
 <h2>Description :</h2>
+
 <div id="content">
-	bfbd
+    <?= $_SESSION["itemDetail"] [2] ?>
 </div>
+
+<br>
+
+
+<a href="test_cookies.php?idItemCart=<?= $_SESSION["itemDetail"] [0] ?>&idUserCart=<?= $_SESSION["user"] ["iduser"] ?>"
+   title="Car Details">
+    <button class="button2">Add to cart</button>
+</a>
 
 <br>
 

@@ -1,6 +1,25 @@
+
+<?php
+if (isset($_GET["errorCart"])){
+    switch ($_GET["errorCart"]){
+        case 0 :
+            echo "<script>alert('Item added to your cart successfully')</script>";
+            break;
+        case 1 :
+            echo "<script>alert('You can not add your item to your cart')</script>";
+            break;
+        case 2 :
+            echo "<script>alert('The item is already in your cart')</script>";
+            break;
+        default:
+            break;
+
+    }
+}
+?>
 <?php
 
-session_start();
+
 if (isset($_SESSION["user"]) && !$_SESSION["user"]["admin"] == 1 ){
     header("Location:connexion.php");
 }

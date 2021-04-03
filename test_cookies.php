@@ -48,7 +48,7 @@ if (array_key_exists('submitAccount', $_POST)) {
 
 
         } else {
-            $statement = $mysqli->prepare("INSERT INTO user (`name`, `email`,`password`,  `seller`, `admin`) VALUES (?,?,?, 1, 0);");
+            $statement = $mysqli->prepare("INSERT INTO user (`name`, `email`,`password`,  `seller`, `admin`) VALUES (?,?,?, 0, 0);");
             $statement->bind_param("sss", $name, $mail, $psw);
             $statement->execute();
 
@@ -292,7 +292,9 @@ function getCarItems()
                 $itemRow = array($row["iditem"],
                     $row["name"],
                     $row["description"],
-                    $row["price"]);
+                    $row["price"],
+                    $row["idUserSeller"]);
+
 
                 array_push($_SESSION["item"], $itemRow);
             }
@@ -333,7 +335,8 @@ function getClothItems()
                 $itemRow = array($row["iditem"],
                     $row["name"],
                     $row["description"],
-                    $row["price"]);
+                    $row["price"],
+                    $row["idUserSeller"]);
 
                 array_push($_SESSION["item"], $itemRow);
             }
@@ -585,29 +588,29 @@ ON  auction.idSeller = item.idUserSeller  and auction.idSeller = user.iduser and
 
 ?>
 
-<?php foreach ($_SESSION['itemAuction'] as $itemSelected) : ?>
+<?php /*foreach ($_SESSION['itemAuction'] as $itemSelected) : */ ?><!--
 
     <div id="containerInfo" style="background: palegoldenrod">
-        <b>User id : </b><?= $itemSelected[0] ?>
+        <b>User id : </b><? /*= $itemSelected[0] */ ?>
         <br>
-        <b>Name : </b><?= $itemSelected[1] ?>
+        <b>Name : </b><? /*= $itemSelected[1] */ ?>
         <br>
-        <b>Email : </b><?= $itemSelected[2] ?>
+        <b>Email : </b><? /*= $itemSelected[2] */ ?>
         <br>
-        <b>Password : </b><?= $itemSelected[3] ?>
+        <b>Password : </b><? /*= $itemSelected[3] */ ?>
         <br>
-        <b>Seller : </b><?= $itemSelected[4] ?>
+        <b>Seller : </b><? /*= $itemSelected[4] */ ?>
 
 
     </div>
 
-<?php endforeach; ?>
+--><?php /*endforeach; */ ?>
 
-
+<!--Contact message -->
 <?php
 
 if (isset($_GET["contact"])) {
-        contactQuery();
+    contactQuery();
 }
 
 function contactQuery()
@@ -636,7 +639,7 @@ function contactQuery()
         $statement->bind_param("ssss", $name, $mail, $object, $message);
         $statement->execute();
 
-        switch ($_GET["contact"]){
+        switch ($_GET["contact"]) {
             case "admin":
                 header("Location:home-admin.php");
                 break;
@@ -654,7 +657,6 @@ function contactQuery()
         }
 
 
-
         $mysqli->close();
 
 
@@ -663,6 +665,281 @@ function contactQuery()
 
 
 ?>
+
+
+<!--Add to cart part -->
+<?php
+
+if (isset($_GET["idItemCart"]) && isset($_GET["idUserCart"])) {
+    addToCart();
+}
+
+function addToCart()
+{
+    $iditemCart = $_GET["idItemCart"];
+    $idUserCart = $_GET["idUserCart"];
+    $idUserSeller = $_GET["idUserSeller"];
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+    if ($_SESSION['user']['iduser'] == $idUserSeller) {
+        if ($_SESSION["user"]["admin"] == 1) {
+            header('Location:home-admin.php?errorCart=1');
+        } else {
+
+            switch ($_SESSION["user"]["seller"]) {
+                case 1 :
+                    header('Location:home-seller.php?errorCart=1');
+                    break;
+                case 0 :
+                    header('Location:home-buyer.php?errorCart=1');
+                    break;
+                default :
+
+                    break;
+
+            }
+        }
+        exit();
+
+    }
+
+
+    $statement = $mysqli->prepare("SELECT * from cart where idItemCart = ? and idUserBuyerCart = ? ;");
+    $statement->bind_param("ii", $iditemCart, $idUserCart);
+    $statement->execute();
+
+
+    $result = $statement->get_result();
+
+
+    if ($result->num_rows != 0) {
+
+        if ($_SESSION["user"]["admin"] == 1) {
+            header('Location:home-admin.php?errorCart=2');
+        } else {
+
+            switch ($_SESSION["user"]["seller"]) {
+                case 1 :
+                    header('Location:home-seller.php?errorCart=2');
+                    break;
+                case 0 :
+                    header('Location:home-buyer.php?errorCart=2');
+                    break;
+                default :
+
+                    break;
+
+            }
+        }
+
+    } else {
+        $statement = $mysqli->prepare("INSERT INTO cart (`iditemCart`, `idUserBuyerCart`) VALUES (?,?);");
+        $statement->bind_param("ii", $iditemCart, $idUserCart);
+        $statement->execute();
+        $mysqli->close();
+
+        if ($_SESSION["user"]["admin"] == 1) {
+            header('Location:home-admin.php?errorCart=0');
+        } else {
+
+            switch ($_SESSION["user"]["seller"]) {
+                case 1 :
+                    header('Location:home-seller.php?errorCart=0');
+                    break;
+                case 0 :
+                    header('Location:home-buyer.php?errorCart=0');
+                    break;
+                default :
+
+                    break;
+
+            }
+        }
+    }
+
+
+}
+
+
+?>
+
+
+<!--show cart part -->
+
+<?php
+
+function getItemCartUser()
+{
+    $idUser = $_SESSION['user']['iduser'];
+
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+    $statement = $mysqli->prepare("SELECT  distinct *
+FROM item
+INNER JOIN cart
+ON  cart.iditemCart = item.iditem  and cart.idUserBuyerCart = ?;
+");
+    $statement->bind_param("i", $idUser);
+    $statement->execute();
+    $result = $statement->get_result();
+
+
+    $_SESSION["itemCart"] = [];
+    $_SESSION['totalPrice'] = [0];
+    $totalPrice = 0;
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+
+        $_SESSION["itemCart"] = [];
+
+        while ($row = $result->fetch_assoc()) {
+
+
+            $totalPrice += $row["price"];
+
+            $itemRow = array($row["iditem"],
+                $row["name"],
+                $row["description"],
+                $row["price"],
+                $row["type"],
+                $totalPrice);
+
+            array_push($_SESSION["itemCart"], $itemRow);
+        }
+        $_SESSION['totalPrice'] = [$totalPrice];
+    } else {
+        $_SESSION["item"] = [];
+    }
+    $mysqli->close();
+
+}
+
+
+?>
+
+
+<!--delete item from cart -->
+<?php
+
+if (isset($_GET['idItemCartDelete'])) {
+    deleteItemCart();
+}
+
+
+function deleteItemCart()
+{
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Delete from cart where iditemCart = ? ;");
+        $statement->bind_param("i", $_GET['idItemCartDelete']);
+        $statement->execute();
+        $_SESSION["itemCart"] = [];
+
+
+        if ($_SESSION["user"]["admin"] == 1) {
+            header('Location:cart-admin.php');
+        } else {
+
+            switch ($_SESSION["user"]["seller"]) {
+                case 1 :
+                    header('Location:cart-seller.php');
+                    break;
+                case 0 :
+                    header('Location:cart-buyer.php');
+                    break;
+                default :
+
+                    break;
+
+            }
+        }
+
+    }
+}
+
+?>
+
+
+<!-- more details function -->
+
+ <?php  ?>
+
+<?php
+
+
+function getItemDetails($idItem)
+{
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Select * from item where idItem = ?;");
+        $statement->bind_param("i", $idItem);
+        $statement->execute();
+        $result = $statement->get_result();
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+
+            $_SESSION["itemDetail"] = [];
+
+            while ($row = $result->fetch_assoc()) {
+
+
+                $_SESSION["itemDetail"] = [$row["iditem"],
+                    $row["name"],
+                    $row["description"],
+                    $row["price"],
+                    $row["idUserSeller"]];
+
+            }
+        } else {
+            $_SESSION["item"] = [];
+        }
+        $mysqli->close();
+    }
+}
+
+?>
+
 
 
 

@@ -1,4 +1,21 @@
+<?php
+if (isset($_GET["errorCart"])){
+    switch ($_GET["errorCart"]){
+        case 0 :
+            echo "<script>alert('Item added to your cart successfully')</script>";
+            break;
+        case 1 :
+            echo "<script>alert('You can not add your item to your cart')</script>";
+            break;
+        case 2 :
+            echo "<script>alert('The item is already in your cart')</script>";
+            break;
+        default:
+            break;
 
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html>

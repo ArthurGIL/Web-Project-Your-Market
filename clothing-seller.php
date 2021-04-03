@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Your Market - Clothing</title>
-    <link rel="stylesheet" href="Market.css" type="text/css" />
+    <link rel="stylesheet" href="Market.css" type="text/css"/>
     <script type="text/javascript">
         function zoom() {
             document.body.style.zoom = "90%"
@@ -20,24 +20,38 @@ require 'test_cookies.php';
 </div>
 <div id="sub"><i>- Clothing</i></div>
 <div id="optButtons">
-    <a href="yourAccount-seller.php" title="YourAccount"><button class="buttonAccount">Your Account</button></a>
-    <a href="cart-seller.php" title="Cart"><button class="buttonCart">Cart</button></a>
+    <a href="yourAccount-seller.php" title="YourAccount">
+        <button class="buttonAccount">Your Account</button>
+    </a>
+    <a href="cart-seller.php" title="Cart">
+        <button class="buttonCart">Cart</button>
+    </a>
 </div>
 
 <hr>
 
 <div id="nav">
-    <a href="home-seller.php" title="Home"><button class="button">Home</button></a>
-    <a href="cars.php" title="Cars"><button class="button">Cars</button></a>
-    <a href="clothing-seller.php" title="Clothing"><button class="button">Clothing</button></a>
-    <a href="contact-seller.php" title="To contact us"><button class="button">To contact us</button></a>
+    <a href="home-seller.php" title="Home">
+        <button class="button">Home</button>
+    </a>
+    <a href="cars-seller.php" title="Cars">
+        <button class="button">Cars</button>
+    </a>
+    <a href="clothing-seller.php" title="Clothing">
+        <button class="button">Clothing</button>
+    </a>
+    <a href="contact-seller.php" title="To contact us">
+        <button class="button">To contact us</button>
+    </a>
 </div>
 
 <hr>
 
 <br>
 <div id="sell">
-    <a href="sell-seller.php?type=clothes" title="Sell"><button class="button4">Sell</button></a>
+    <a href="sell-seller.php?type=clothes" title="Sell">
+        <button class="button4">Sell</button>
+    </a>
 </div>
 
 <div id="grid_container">
@@ -49,8 +63,16 @@ require 'test_cookies.php';
             <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
             <?= $itemSelected[1] ?><br>
             <?= $itemSelected[3] ?><br><br>
-            <a href="details-admin.php" title="Car Details">
+            <a href="details-seller.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
                 <button class="button2">More Details</button>
+            </a>
+            <br>
+            <br>
+            <br>
+
+            <a href="test_cookies.php?idItemCart=<?= $itemSelected[0] ?>&idUserCart=<?= $_SESSION["user"]["iduser"] ?>&idUserSeller=<?= $itemSelected[4] ?>"
+               title="Car Details">
+                <button class="button2">Add to cart</button>
             </a>
         </div>
     <?php endforeach; ?>
@@ -62,7 +84,9 @@ require 'test_cookies.php';
     <div id="footText">Buyer - Seller</div>
     <div id="footBlock"></div>
     <div id="Deconnexion">
-        <a href="test_cookies.php?deco=1" title="Deconnexion"><button class="buttonDeco">Deconnexion</button></a>
+        <a href="test_cookies.php?deco=1" title="Deconnexion">
+            <button class="buttonDeco">Deconnexion</button>
+        </a>
     </div>
 </div>
 

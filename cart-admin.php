@@ -1,3 +1,5 @@
+<?php
+require "test_cookies.php"?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +32,29 @@
 <hr>
 
 <h2>Your cart :</h2>
+<?php getItemCartUser(); ?>
+
+<?php foreach ($_SESSION['itemCart'] as $itemSelected) : ?>
+
+    <div id="containerInfo" style="background: palegoldenrod">
+        <b>Item id : </b><?= $itemSelected[0] ?>
+        <br>
+        <b>Name : </b><?= $itemSelected[1] ?>
+        <br>
+        <b>Description : </b><?= $itemSelected[2] ?>
+        <br>
+        <b>Price : </b><?= $itemSelected[3] ?>
+        <br>
+        <b>Type : </b><?= $itemSelected[4] ?>
+        <form action="test_cookies.php?idItemCartDelete=<?=$itemSelected[0]?>" method="post">
+            <div id="delItemAdmin">
+
+            </div>
+            <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+        </form>
+    </div>
+
+<?php endforeach; ?>
 <div id="content">
 	<div id="desc">
 		-----image------<br>
@@ -39,8 +64,7 @@
 		suprItem
 	</div>
 </div>
-<h3>TOTAL : <b id="totalPrice">0</b> €</h3>
-
+<h3>TOTAL : <b id="totalPrice"><?= $_SESSION['totalPrice'][0]?></b> Euros</h3>
 <br>
 <br>
 <div id="footer">

@@ -49,7 +49,7 @@ require 'test_cookies.php';
             <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
             <?= $itemSelected[1] ?><br>
             <?= $itemSelected[3] ?><br><br>
-            <a href="details-admin.php" title="Car Details">
+            <a href="details.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
                 <button class="button2">More Details</button>
             </a>
         </div>
