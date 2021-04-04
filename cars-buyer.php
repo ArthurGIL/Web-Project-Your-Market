@@ -60,23 +60,27 @@ require 'test_cookies.php';
     <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
         <div id="item">
             <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
-                 width="200px"/>
-
-            <br><br>
+                 width="200px"/><br>
             <?= $itemSelected[1] ?><br>
-            <?= $itemSelected[3] ?> Euros<br><br>
-            <a href="details-buyer.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
+            <?= $itemSelected[3] ?> Euros
+            <br><br>
+            <b>Type of sell :</b> <?= $itemSelected[6] ?>
+            <br><br>
+            <a href="details-admin.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
                 <button class="button2">More Details</button>
             </a>
             <br>
             <br>
-            <br>
+            <?php if ($itemSelected [4] != $_SESSION["user"]["iduser"]):  ?>
 
-            <a href="test_cookies.php?idItemCart=<?= $itemSelected[0] ?>&idUserCart=<?= $_SESSION["user"]["iduser"] ?>&idUserSeller=<?= $itemSelected[4] ?>"
-               title="Car Details">
-                <button class="button2">Add to cart</button>
-            </a>
+                <a href="test_cookies.php?idItemCart=<?= $itemSelected[0] ?>&idUserCart=<?= $_SESSION["user"]["iduser"] ?>&idUserSeller=<?= $itemSelected[4] ?>"
+                   title="Car Details">
+                    <button class="button2" style="width: 50%">Add to cart</button>
+                </a>
+            <?php endif ?>
+
         </div>
+
     <?php endforeach; ?>
 </div>
 

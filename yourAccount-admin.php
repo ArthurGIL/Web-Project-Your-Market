@@ -57,7 +57,7 @@
 		<?= $itemSelected[1] ?><br>
 		<?= $itemSelected[3] ?> Euros<br>
 		<?= $itemSelected[2] ?><br><br>
-		<form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
+		<form action="test_cookies.php?itemID=<?=$itemSelected[0]?>" method="post">
 	        <div id="delItemAccount">
 	            <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
 	        </div>
