@@ -434,7 +434,7 @@ function getClothItems()
         die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
     } else {
 
-        $statement = $mysqli->prepare("Select * from item where Type = 'clothes';");
+        $statement = $mysqli->prepare("Select * from item where type = 'clothes';");
         $statement->execute();
         $result = $statement->get_result();
 

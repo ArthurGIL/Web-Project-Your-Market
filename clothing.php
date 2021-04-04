@@ -61,11 +61,13 @@ require 'test_cookies.php';
 
         <div id="item">
             <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
-                 width="200px"/> <br><br>
-            <?= $itemSelected[1] ?><br>
+                 width="200px"/><br>
+            <h3><?= $itemSelected[1] ?></h3>
             <?= $itemSelected[3] ?> Euros
             <br><br>
-            <a href="details.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
+            <b>Type of sell :</b> <?= $itemSelected[6] ?>
+            <br><br>
+            <a href="details-admin.php?idItemDetail=<?= $itemSelected[0] ?>" title="Details">
                 <button class="button2">More Details</button>
             </a>
         </div>

@@ -73,8 +73,8 @@ h3{
   border-radius: 12px;
   bottom: 0px;
   right: -1px;
-  width: 9%;
-  height: 43px;
+  width: 9.1%;
+  height: 42px;
 }
 
 .button {
@@ -273,6 +273,31 @@ h3{
   border: none;
 }
 
+.buttonAddCart {
+  background-color: #DE2700;
+  color: white;
+  padding: 10px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+  width: 170px;
+  border-radius: 8px;
+  border: 2px solid #DCDCDC;
+}
+.buttonAddCart:hover {
+  background-color: #C32200;
+  color: white;
+  border: 2px solid #C32200;
+}
+.buttonAddCart:disabled {
+  background-color: #BDB9B5;
+  color: white;
+  border: 2px solid #DCDCDC;
+}
+
 .buttonDel {
   background-color: #C32200;
   display: block;
@@ -322,9 +347,18 @@ h3{
 }
 
 #containerInfo {
-  display: inline-block;
+  display: block;
+  margin-top: 15px;
+  position: relative;
   margin-bottom: 10px;
+  background-color: #DCDCDC;
   width: 100%;
+}
+
+#containerInfo img {
+  border: 2px solid #54524F;
+  margin-top:10px;
+  margin-left:10px;
 }
 
 #sell {
@@ -332,7 +366,7 @@ h3{
 }
 
 #grid_container{
-	display: grid;
+  display: grid;
   grid-template-columns: 2fr 2fr 2fr;
   grid-gap: 5px 1em;
 }
@@ -349,18 +383,19 @@ h3{
 }
 
 #objPos{
-	object-position: center top;
+  object-position: center top;
 }
 
 #item{
-	position:relative;
-	margin-left:40px;
-	margin-top:20px;
-	width:370px;
-	height:500px;
-	background-color:#DCDCDC;
-	text-align:center;
-	color:#000000;	
+  position:relative;
+  margin-left:10%;
+  margin-right:10%;
+  margin-top: 30px;
+  width:370px;
+  height:515px;
+  background-color:#DCDCDC;
+  text-align:center;
+  color:#000000;
 }
 
 #pay_grid{
@@ -387,9 +422,9 @@ h3{
 
 #delItemAdmin {
   display: block;
-  position: relative;
-  bottom: 50px;
-  left: 90%;
+  position: absolute;
+  right: 27px;
+  bottom: 27px;
 }
 
 #delItemAccount {

@@ -38,24 +38,21 @@ require "test_cookies.php"?>
 
     <?php foreach ($_SESSION['itemCart'] as $itemSelected): ?>
 
-        <div id="containerInfo" style="background: palegoldenrod">
+        <div id="containerInfo">
             <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="100px"
                  width="100px"/><br>
-            <b>Item id : </b><?= $itemSelected[0] ?>
-            <br>
             <b>Name : </b><?= $itemSelected[1] ?>
             <br>
             <b>Description : </b><?= $itemSelected[2] ?>
             <br>
-            <b>Price : </b><?= $itemSelected[3] ?>
+            <b>Price : </b><?= $itemSelected[3] ?> Euros
             <br>
             <b>Type : </b><?= $itemSelected[4] ?>
 
             <form action="test_cookies.php?idItemCartDelete=<?=$itemSelected[0]?>" method="post">
                 <div id="delItemAdmin">
-
+                    <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
                 </div>
-                <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
             </form>
         </div>
 

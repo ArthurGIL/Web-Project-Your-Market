@@ -36,9 +36,9 @@
 	<div id="account">
 		<b id="aFName">Fistname : </b><?= $_SESSION["user"]["name"]?>
 		<br><br>
-		<b id="aLName">Lastname : </b><?= $_SESSION["user"]["name"]?>
+		<b id="aLName">E-mail : </b><?= $_SESSION["user"]["email"]?>
 		<br><br>
-		<b id="aMail">E-mail : </b><?= $_SESSION["user"]["psw"]?>
+		<b id="aMail">Password : </b><?= $_SESSION["user"]["psw"]?>
 		<br><br>
 		<b id="aPay">Payement : </b>
 	</div>
@@ -53,10 +53,17 @@
 
 	<div id="item">
         <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
-             width="200px"/><br><br>
-		<?= $itemSelected[1] ?><br>
-		<?= $itemSelected[3] ?> Euros<br>
-		<?= $itemSelected[2] ?><br><br>
+             width="200px"/><br>
+		<h3><?= $itemSelected[1] ?></h3>
+		<?= $itemSelected[3] ?> Euros
+        <br><br>
+        <b>Type of sell :</b> <?= $itemSelected[6] ?>
+        <br><br>
+        <a href="details-admin.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
+            <button class="button2">More Details</button>
+        </a>
+        <br>
+        <br>
 		<form action="test_cookies.php?itemID=<?=$itemSelected[0]?>" method="post">
 	        <div id="delItemAccount">
 	            <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
@@ -66,7 +73,9 @@
 	<?php endforeach; ?>
 </div>
 
-<h2>Your Items sold :</h2>
+<br><br>
+
+<h2>Your Sold Items :</h2>
 <div id="grid_container_account">
     <?php getSellingItemsSold(); ?>
 
