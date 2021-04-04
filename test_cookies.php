@@ -263,7 +263,7 @@ function deleteUser($User)
         $statement = $mysqli->prepare("Delete from user where iduser = ? ;");
         $statement->bind_param("i", $User);
         $statement->execute();
-        $_SESSION["user"] = [];
+
 
 
         header('Location:admin.php');
