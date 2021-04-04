@@ -186,7 +186,7 @@ if (isset($_GET["itemID"])) {
 }
 
 
-function deleteItem($idItemChoosen)
+function deleteItem($idItemChosen)
 {
 
 
@@ -205,29 +205,14 @@ function deleteItem($idItemChoosen)
     } else {
 
         $statement = $mysqli->prepare("Delete from item where iditem = ? ;");
-        $statement->bind_param("i", $idItemChoosen);
+        $statement->bind_param("i", $idItemChosen);
         $statement->execute();
         $_SESSION["item"] = [];
 
 
         if ($_SESSION["user"]["admin"] == 1) {
-            header('Location:home-admin.php');
-        } else {
-
-            switch ($_SESSION["user"]["seller"]) {
-                case 1 :
-                    header('Location:home-seller.php');
-                    break;
-                case 0 :
-                    header('Location:home-buyer.php');
-                    break;
-                default :
-
-                    break;
-
-            }
+            header('Location:admin.php');
         }
-
     }
 }
 
@@ -244,7 +229,6 @@ if (isset($_GET["UserId"])) {
 }
 function deleteUser($User)
 {
-
 
     $user = 'root';
     $password = ''; //To be completed if you have set a password to root
@@ -263,12 +247,9 @@ function deleteUser($User)
         $statement = $mysqli->prepare("Delete from user where iduser = ? ;");
         $statement->bind_param("i", $User);
         $statement->execute();
-
-
+        $_SESSION["allUser"] = [];
 
         header('Location:admin.php');
-
-
     }
 }
 

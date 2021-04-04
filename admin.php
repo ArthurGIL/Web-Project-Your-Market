@@ -39,25 +39,25 @@ require 'test_cookies.php';
         <?php getAllUsers(); ?>
 
         <?php foreach ($_SESSION['allUser'] as $itemSelected) : ?>
+            <?php if ($_SESSION["user"]["iduser"] != $itemSelected[0]): ?>
+                <div id="containerInfo" style="background: palegoldenrod">
+                    <b>User id : </b><?= $itemSelected[0] ?>
+                    <br>
+                    <b>Name : </b><?= $itemSelected[1] ?>
+                    <br>
+                    <b>Email : </b><?= $itemSelected[2] ?>
+                    <br>
+                    <b>Password : </b><?= $itemSelected[3] ?>
+                    <br>
+                    <b>Seller : </b><?= $itemSelected[4] ?>
 
-            <div id="containerInfo" style="background: palegoldenrod">
-                <b>User id : </b><?= $itemSelected[0] ?>
-                <br>
-                <b>Name : </b><?= $itemSelected[1] ?>
-                <br>
-                <b>Email : </b><?= $itemSelected[2] ?>
-                <br>
-                <b>Password : </b><?= $itemSelected[3] ?>
-                <br>
-                <b>Seller : </b><?= $itemSelected[4] ?>
-
-                <form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
-                    <div id="delItemAdmin">
-                        <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
-                    </div>
-                </form>
-            </div>
-
+                    <form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
+                        <div id="delItemAdmin">
+                            <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+                        </div>
+                    </form>
+                </div>
+            <?php endif;?>
         <?php endforeach; ?>
     </div>
 </div>
