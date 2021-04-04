@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 
-<!--Create account part ----------------------------------->
+<!--Create account part -->
 <?php
 
 
@@ -68,7 +68,7 @@ if (array_key_exists('submitAccount', $_POST)) {
                 "admin" => $row["admin"]
             ];
 
-            header('Location:connexion.php');
+            header('Location:payment.php');
 
             $mysqli->close();
 
@@ -79,10 +79,10 @@ if (array_key_exists('submitAccount', $_POST)) {
 
 }
 ?>
-<!----------------------------------->
 
 
-<!--Connect account part with cookie ----------------------------------->
+
+<!--Connect account part with cookie -->
 <?php
 
 
@@ -128,6 +128,26 @@ if (array_key_exists('Connect', $_POST)) {
                 "admin" => $row["admin"]
             ];
 
+
+        }
+        if ($result->num_rows == 0) {
+            setcookie("errorConnection", 1, time() + 3600);
+            header('Location:connexion.php');
+        }
+        $mysqli->close();
+
+
+        $mysqliPayment = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+        $statementPayment = $mysqliPayment->prepare("Select * from payment where idUserPayment = ?;");
+        $statementPayment->bind_param("i", $row["iduser"]);
+        $statementPayment->execute();
+
+        $resultPayment = $statementPayment->get_result();
+
+        if ($rowPayment = $resultPayment->fetch_assoc() == 0) {
+            header('Location:payment.php');
+        } else {
             if ($_SESSION['user']['admin'] == "1") {
                 header('Location:home-admin.php');
             } elseif ($_SESSION['user']['seller'] == "1") {
@@ -135,24 +155,128 @@ if (array_key_exists('Connect', $_POST)) {
             } else {
                 header('Location:home-buyer.php');
             }
-
-
-        }
-        if ($result->num_rows == 0) {
-            setcookie("errorConnection", 1, time() + 3600);
-            header('Location:connexion.php');
         }
 
-        $mysqli->close();
+
+        $mysqliPayment->close();
     }
 }
 ?>
 
 
+<!--Deconnexion part-->
+<?php
+
+if (isset($_GET["deco"])) {
+    $deco = intval($_GET["deco"]);
+    if ($deco == 1) {
+        $_SESSION["user"] = [];
+    }
+    header("Location:home.php");
+}
+?>
 
 
+<!--Delete item from admin or Seller-->
 
 <?php
+if (isset($_GET["itemID"])) {
+    $idItem = intval($_GET["itemID"]);
+    deleteItem($idItem);
+}
+
+
+function deleteItem($idItemChoosen)
+{
+
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Delete from item where iditem = ? ;");
+        $statement->bind_param("i", $idItemChoosen);
+        $statement->execute();
+        $_SESSION["item"] = [];
+
+
+        if ($_SESSION["user"]["admin"] == 1) {
+            header('Location:home-admin.php');
+        } else {
+
+            switch ($_SESSION["user"]["seller"]) {
+                case 1 :
+                    header('Location:home-seller.php');
+                    break;
+                case 0 :
+                    header('Location:home-buyer.php');
+                    break;
+                default :
+
+                    break;
+
+            }
+        }
+
+    }
+}
+
+?>
+
+
+
+<!--Delete user from admin-->
+<?php
+
+if (isset($_GET["UserId"])) {
+    $UserId = intval($_GET["UserId"]);
+    deleteUser($UserId);
+}
+function deleteUser($User)
+{
+
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Delete from user where iduser = ? ;");
+        $statement->bind_param("i", $User);
+        $statement->execute();
+        $_SESSION["user"] = [];
+
+
+        header('Location:admin.php');
+
+
+    }
+}
+
+?>
+
+<?php
+
+
 
 
 function getAllItems()
@@ -191,7 +315,9 @@ function getAllItems()
                 $itemRow = array($row["iditem"],
                     $row["name"],
                     $row["description"],
-                    $row["price"]);
+                    $row["price"],
+                    $row["idUserSeller"],
+                    $row["photo"]);
 
 
                 array_push($_SESSION["item"], $itemRow);
@@ -293,10 +419,16 @@ function getCarItems()
                     $row["name"],
                     $row["description"],
                     $row["price"],
-                    $row["idUserSeller"]);
+                    $row["idUserSeller"],
+                    $row["photo"],
+                    $row["typeSell"],
+                    $row["sold"]);
+
+                if ($row["sold"] == 0){
+                    array_push($_SESSION["item"], $itemRow);
+                }
 
 
-                array_push($_SESSION["item"], $itemRow);
             }
         } else {
             $_SESSION["item"] = [];
@@ -321,7 +453,7 @@ function getClothItems()
         die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
     } else {
 
-        $statement = $mysqli->prepare("Select * from item where Type = 'cloth';");
+        $statement = $mysqli->prepare("Select * from item where Type = 'clothes';");
         $statement->execute();
         $result = $statement->get_result();
 
@@ -336,9 +468,16 @@ function getClothItems()
                     $row["name"],
                     $row["description"],
                     $row["price"],
-                    $row["idUserSeller"]);
+                    $row["idUserSeller"],
+                    $row["photo"],
+                    $row["typeSell"],
+                    $row["sold"]);
 
-                array_push($_SESSION["item"], $itemRow);
+                if ($row["sold"] == 0){
+                    array_push($_SESSION["item"], $itemRow);
+                }
+
+
             }
         } else {
             $_SESSION["item"] = [];
@@ -347,109 +486,15 @@ function getClothItems()
     }
 }
 
-if (isset($_GET["itemID"])) {
-    $idItem = intval($_GET["itemID"]);
-    deleteItem($idItem);
-}
-
-if (isset($_GET["UserId"])) {
-    $UserId = intval($_GET["UserId"]);
-    deleteUser($UserId);
-}
 
 
-function deleteItem($idItemChoosen)
-{
 
 
-    $user = 'root';
-    $password = ''; //To be completed if you have set a password to root
-    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
-    $port = NULL; //Default must be NULL to use default port
-    $database = 'db_test';
 
 
-    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
 
 
-    if ($mysqli->connect_error) {
-        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-    } else {
-
-        $statement = $mysqli->prepare("Delete from item where iditem = ? ;");
-        $statement->bind_param("i", $idItemChoosen);
-        $statement->execute();
-        $_SESSION["item"] = [];
-        header('Location:home.php');
-
-    }
-}
-
-function deleteUser($User)
-{
-
-
-    $user = 'root';
-    $password = ''; //To be completed if you have set a password to root
-    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
-    $port = NULL; //Default must be NULL to use default port
-    $database = 'db_test';
-
-
-    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
-
-
-    if ($mysqli->connect_error) {
-        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-    } else {
-
-        $statement = $mysqli->prepare("Delete from user where iduser = ? ;");
-        $statement->bind_param("i", $User);
-        $statement->execute();
-        $_SESSION["user"] = [];
-        header('Location:home.php');
-
-
-    }
-}
-
-
-if (isset($_GET["deco"])) {
-    $deco = intval($_GET["deco"]);
-    if ($deco == 1) {
-        $_SESSION["user"] = [];
-    }
-    header("Location:home.php");
-}
-
-if (isset($_GET["beSeller"])) {
-    $seller = intval($_GET["beSeller"]);
-    if ($seller == 1) {
-        becomeSeller();
-    }
-    header("Location:home-seller.php");
-}
-
-
-function becomeSeller()
-{
-
-    $idUserConnected = $_SESSION["user"]["iduser"];
-    $user = 'root';
-    $password = ''; //To be completed if you have set a password to root
-
-    $port = NULL; //Default must be NULL to use default port
-    $database = 'db_test';
-
-
-    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
-
-    $statement = $mysqli->prepare("UPDATE `db_test`.`user` SET `seller` = '1' WHERE (`iduser` = ?);");
-
-    $statement->bind_param("i", $idUserConnected);
-    $statement->execute();
-}
-
+/*Selling item for your account*/
 function getSellingItems()
 {
     $user = 'root';
@@ -475,15 +520,26 @@ function getSellingItems()
 
             $_SESSION["item"] = [];
 
+
             while ($row = $result->fetch_assoc()) {
 
                 $itemRow = array($row["iditem"],
                     $row["name"],
                     $row["description"],
-                    $row["price"]);
+                    $row["price"],
+                    $row["idUserSeller"],
+                    $row["photo"],
+                    $row["typeSell"],
+                    $row["sold"]);
 
-                array_push($_SESSION["item"], $itemRow);
+                if ($row["sold"] == 0){
+                    array_push($_SESSION["item"], $itemRow);
+                }
+
+
             }
+
+
         } else {
             $_SESSION["item"] = [];
         }
@@ -491,6 +547,56 @@ function getSellingItems()
     }
 }
 
+
+function getSellingItemsSold()
+{
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+    $idUserConnected = $_SESSION["user"]["iduser"];
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Select * from item where idUserSeller = $idUserConnected;");
+        $statement->execute();
+        $result = $statement->get_result();
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+
+            $_SESSION["item"] = [];
+
+
+            while ($row = $result->fetch_assoc()) {
+
+                $itemRow = array($row["iditem"],
+                    $row["name"],
+                    $row["description"],
+                    $row["price"],
+                    $row["idUserSeller"],
+                    $row["photo"],
+                    $row["typeSell"],
+                    $row["sold"]);
+
+                if ($row["sold"] == 1){
+                    array_push($_SESSION["item"], $itemRow);
+                }
+
+
+            }
+        } else {
+            $_SESSION["item"] = [];
+        }
+        $mysqli->close();
+    }
+}
 
 function getAuctionSeller()
 {
@@ -587,6 +693,39 @@ ON  auction.idSeller = item.idUserSeller  and auction.idSeller = user.iduser and
 }
 
 ?>
+
+
+<!--Become seller-->
+<?php
+if (isset($_GET["beSeller"])) {
+    $seller = intval($_GET["beSeller"]);
+    if ($seller == 1) {
+        becomeSeller();
+    }
+    header("Location:home-seller.php");
+}
+
+
+function becomeSeller()
+{
+
+    $idUserConnected = $_SESSION["user"]["iduser"];
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+    $statement = $mysqli->prepare("UPDATE `db_test`.`user` SET `seller` = '1' WHERE (`iduser` = ?);");
+
+    $statement->bind_param("i", $idUserConnected);
+    $statement->execute();
+}
+?>
+
 
 <?php /*foreach ($_SESSION['itemAuction'] as $itemSelected) : */ ?><!--
 
@@ -817,7 +956,7 @@ ON  cart.iditemCart = item.iditem  and cart.idUserBuyerCart = ?;
                 $row["description"],
                 $row["price"],
                 $row["type"],
-                $totalPrice);
+                $row["photo"]);
 
             array_push($_SESSION["itemCart"], $itemRow);
         }
@@ -889,7 +1028,7 @@ function deleteItemCart()
 
 <!-- more details function -->
 
- <?php  ?>
+<?php ?>
 
 <?php
 
@@ -928,7 +1067,9 @@ function getItemDetails($idItem)
                     $row["name"],
                     $row["description"],
                     $row["price"],
-                    $row["idUserSeller"]];
+                    $row["idUserSeller"],
+                    $row["photo"],
+                    $row["typeSell"]];
 
             }
         } else {
@@ -940,18 +1081,181 @@ function getItemDetails($idItem)
 
 ?>
 
+<!-- add Item -->
 
 
+<?php
+
+if (isset($_GET["uploadImage"])) {
+    addItem($_GET["uploadImage"]);
+}
 
 
+function addItem($idUser)
+{
+    $dbHost = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "db_test";
+
+    $itemName = $_POST["itemName"];
+    $description = $_POST["Description"];
+    $price = $_POST["priceItem"];
+    if (isset($_POST["auction"])) {
+        $typeSell = $_POST["auction"];
+    }
+    if (isset($_POST["instant"])) {
+        $typeSell = $_POST["instant"];
+    }
+    if (isset($_POST["bestOffer"])) {
+        $typeSell = $_POST["bestOffer"];
+    }
+
+    if (isset($_GET["category"])) {
+        if ($_GET["category"] == 1) {
+            $category = "car";
+        } else {
+            $category = "clothes";
+        }
+    }
 
 
+// Create database connection
+    $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+
+// Check connection
+    if ($db->connect_error) {
+        die("Connection failed: " . $db->connect_error);
+    }
+
+// If file upload form is submitted
+    $status = $statusMsg = '';
+    if (isset($_POST["submit"])) {
+        $status = 'error';
+        if (!empty($_FILES["image"]["name"])) {
+            // Get file info
+            $fileName = basename($_FILES["image"]["name"]);
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+            // Allow certain file formats
+            $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'PNG');
+            if (in_array($fileType, $allowTypes)) {
+                $image = $_FILES['image']['tmp_name'];
+                $imgContent = addslashes(file_get_contents($image));
+
+                // Insert image content into database
+                $insert = $db->query("INSERT into item (name, description,price, photo, idUserSeller, type, typeSell, sold) 
+                                                VALUES ('$itemName', '$description', '$price','$imgContent','$idUser','$category', '$typeSell', 0)");
+
+                if ($insert) {
+                    $status = 'success';
+                    $statusMsg = "File uploaded successfully.";
+
+                    if ($_SESSION["user"]["admin"] == 1) {
+                        header('Location:home-admin.php?addSuccess=1');
+                    } else {
+                        header('Location:home-seller.php?addSuccess=1');
+
+                    }
 
 
+                } else {
+                    $statusMsg = "File upload failed, please try again.";
+                }
+            } else {
+                $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.';
+            }
+        } else {
+            $statusMsg = 'Please select an image file to upload.';
+        }
+    }
+
+// Display status message
+    echo $statusMsg;
+}
+
+?>
+
+<!--add payment -->
+
+<?php
+
+if (array_key_exists('submitPayment', $_POST)) {
+
+    addPaymentUser($_SESSION["user"]["iduser"]);
+
+}
 
 
+function addPaymentUser($idUserPayment)
+{
 
 
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $city = $_POST['city'];
+    $postalCode = $_POST['postalCode'];
+    $country = $_POST['country'];
+    $phone = $_POST['phone'];
+    $cardType = $_POST['cardType'];
+    $cardNumber = $_POST['cardNumber'];
+    $nameOnCard = $_POST['cardName'];
+    $date = $_POST['cardDate'];
+    $code = $_POST['securityCode'];
+
+
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("insert into payment (idUserPayment,
+                     address1, 
+                     address2, 
+                     city,
+                     postalCode,
+                     country,
+                     phoneNumber,
+                     typeCard,
+                     cardNumber,
+                     nameCard,
+                     expDate,
+                     digiCode
+                     ) values ('$idUserPayment', ?,?,?,?,?,?,?,?,?,'$date',?);");
+        $statement->bind_param("sssssisisi",
+            $address1,
+            $address2,
+            $city,
+            $postalCode,
+            $country,
+            $phone,
+            $cardType,
+            $cardNumber,
+            $nameOnCard,
+            $code);
+        $statement->execute();
+
+        if ($_SESSION["user"]["seller"] == 1) {
+            header('Location:home-seller.php');
+        } else {
+            header('Location:home-buyer.php');
+
+        }
+
+    }
+
+}
+
+?>
 
 
 

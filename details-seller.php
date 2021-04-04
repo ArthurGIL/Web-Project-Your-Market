@@ -34,7 +34,7 @@ if (isset($_GET["idItemDetail"])) {
 <hr>
 
 <div id="nav">
-    <a href="home-buyer.php" title="Home">
+    <a href="home-seller.php" title="Home">
         <button class="buttonBack">< Back</button>
     </a>
 </div>
@@ -44,7 +44,10 @@ if (isset($_GET["idItemDetail"])) {
 
 <div id="content">
     <h3>Name : <?= $_SESSION["itemDetail"] [1] ?></h3>
-    -----image-----
+    <img src="data:image/jpeg;base64,<?= base64_encode($_SESSION["itemDetail"] [5]) ?>" height="300px"
+         width="300px"/>
+
+
     <br>
     <h1>Price : </h1>
     <?= $_SESSION["itemDetail"] [3] ?> Euros
@@ -54,27 +57,33 @@ if (isset($_GET["idItemDetail"])) {
 
 <div id="content">
     <?= $_SESSION["itemDetail"] [2] ?>
+
+    <?= $_SESSION["itemDetail"] [6] ?>
 </div>
 
 <br>
-
 
 <a href="test_cookies.php?idItemCart=<?= $_SESSION["itemDetail"] [0] ?>&idUserCart=<?= $_SESSION["user"] ["iduser"] ?>"
    title="Car Details">
     <button class="button2">Add to cart</button>
 </a>
 <div id="pay_grid">
+
+    <?php if ($_SESSION["itemDetail"] [6] == "Auction"):  ?>
     <div id="auction">
         <h3>Auction :</h3>
         <b id="cBid" class="data">Current bid :</b>
         <br>
-        <label for="number1">Enter your bid (€) :</label>
+        <label for="number1">Enter your bid (Euros) :</label>
         <input type="number" id="number1" name="bid" min="">
         <br>
         <br>
         <button onclick="bid()" class="button3">Bid</button>
     </div>
 
+    <?php endif;?>
+
+<?php if ($_SESSION["itemDetail"] [6] == "Instant buy"):  ?>
     <div id="directPrice">
         <h3>Instant Buy :</h3>
         <b id="aPrice" class="data">Asking Price :</b>
@@ -83,14 +92,18 @@ if (isset($_GET["idItemDetail"])) {
         <button onclick="buy()" class="button3">Buy</button>
     </div>
 
+    <?php endif ?>
+    <?php if ($_SESSION["itemDetail"] [6] == "Best Offer"):  ?>
     <div id="bestOffer">
         <h3>Best Offer :</h3>
-        <label for="number2">Enter your offer (€) :</label>
+        <label for="number2">Enter your offer (Euros) :</label>
         <input type="number" id="number2" name="bOffer">
         <br>
         <br>
         <button onclick="offer()" class="button3">Offer</button>
     </div>
+
+    <?php endif ?>
 </div>
 
 <br>

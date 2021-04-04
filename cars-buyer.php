@@ -58,11 +58,13 @@ require 'test_cookies.php';
     <?php getCarItems(); ?>
 
     <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
-
         <div id="item">
-            <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
+            <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
+                 width="200px"/>
+
+            <br><br>
             <?= $itemSelected[1] ?><br>
-            <?= $itemSelected[3] ?><br><br>
+            <?= $itemSelected[3] ?> Euros<br><br>
             <a href="details-buyer.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">
                 <button class="button2">More Details</button>
             </a>

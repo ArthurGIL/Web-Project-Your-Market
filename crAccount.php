@@ -47,13 +47,25 @@
         <br><br>
         Your Password : <input type="Password" name="psw">
         <br><br>
-        Confirm Your Password : <input type="Password" name="pswConfirmed">
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
         <br><br>
-        <input type="submit" name="submitAccount" class="button4">Create Account>
+        <input type="submit" name="submitAccount" class="button4">
     </form>
 
 </div>

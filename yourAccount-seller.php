@@ -35,34 +35,61 @@
 
 <h2>Your Account :</h2>
 <div id="content">
-	<div id="account">
-		<b id="aFName">Fistname : </b><?= $_SESSION["user"]["name"]  ?>
-		<br><br>
-		<b id="aLName">Lastname : </b><?= $_SESSION["user"]["name"]  ?>
-		<br><br>
-		<b id="aMail">E-mail : </b><?= $_SESSION["user"]["psw"]  ?>
-		<br><br>
-		<b id="aPay">Payement : </b>
-	</div>
+    <div id="account">
+        <b id="aFName">Fistname : </b><?= $_SESSION["user"]["name"]?>
+        <br><br>
+        <b id="aLName">Lastname : </b><?= $_SESSION["user"]["name"]?>
+        <br><br>
+        <b id="aMail">E-mail : </b><?= $_SESSION["user"]["psw"]?>
+        <br><br>
+        <b id="aPay">Payement : </b>
+    </div>
 </div>
 <br>
 
 <h2>Your Items :</h2>
-<div id="grid_container">
-	<?php getSellingItems(); ?>
+<div id="grid_container_account">
+    <?php getSellingItems(); ?>
 
-	<?php foreach ($_SESSION['item'] as $itemSelected) : ?>
+    <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
 
-	<div id="item">
-	    <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
-		<?= $itemSelected[1] ?><br>
-		<?= $itemSelected[3] ?>€<br><br>
-		<a href="details-admin.php" title="Car Details">
-			<button class="button2">More Details</button>
-		</a>
-	</div>
-	<?php endforeach; ?>
+        <div id="item">
+            <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
+                 width="200px"/><br><br>
+            <?= $itemSelected[1] ?><br>
+            <?= $itemSelected[3] ?> Euros<br>
+            <?= $itemSelected[2] ?><br><br>
+            <?= $itemSelected[0] ?>
+            <form action="test_cookies.php?itemID=<?=$itemSelected[0]?>" method="post">
+                <div id="delItemAccount">
+                    <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+                </div>
+            </form>
+        </div>
+    <?php endforeach; ?>
 </div>
+
+<h2>Your Items sold :</h2>
+<div id="grid_container_account">
+    <?php getSellingItemsSold(); ?>
+
+    <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
+
+        <div id="item">
+            <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
+                 width="200px"/><br><br>
+            <?= $itemSelected[1] ?><br>
+            <?= $itemSelected[3] ?> Euros<br>
+            <?= $itemSelected[2] ?><br><br>
+            <!--<form action="test_cookies.php?UserId=<?/*=$itemSelected[0]*/?>" method="post">
+                <div id="delItemAccount">
+                    <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+                </div>
+            </form>-->
+        </div>
+    <?php endforeach; ?>
+</div>
+
 
 <br>
 <br>

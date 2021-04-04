@@ -37,6 +37,8 @@ require "test_cookies.php"?>
     <?php foreach ($_SESSION['itemCart'] as $itemSelected) : ?>
 
         <div id="containerInfo" style="background: palegoldenrod">
+            <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="100px"
+                 width="100px"/><br>
             <b>Item id : </b><?= $itemSelected[0] ?>
             <br>
             <b>Name : </b><?= $itemSelected[1] ?>
@@ -46,6 +48,7 @@ require "test_cookies.php"?>
             <b>Price : </b><?= $itemSelected[3] ?>
             <br>
             <b>Type : </b><?= $itemSelected[4] ?>
+
             <form action="test_cookies.php?idItemCartDelete=<?=$itemSelected[0]?>" method="post">
                 <div id="delItemAdmin">
 
@@ -54,14 +57,20 @@ require "test_cookies.php"?>
             </form>
         </div>
 
+        <?php if ($_SESSION["itemDetail"] [6] == "Auction"):  ?>
+            <div id="bestOffer">
+                <h3>Best Offer :</h3>
+                <label for="number2">Enter your offer (Euros) :</label>
+                <input type="number" id="number2" name="bOffer">
+                <br>
+                <br>
+                <button onclick="offer()" class="button3">Offer</button>
+            </div>
+
+        <?php endif ?>
+
     <?php endforeach; ?>
-	<div id="desc">
-		-----image------<br>
-		-----desc + prix-------
-	</div>
-	<div id="suppr">
-		suprItem
-	</div>
+
 </div>
 <h3>TOTAL : <b id="totalPrice"><?= $_SESSION['totalPrice'][0]?></b> Euros</h3>
 <br>

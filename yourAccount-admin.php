@@ -1,4 +1,4 @@
-
+<?php require "test_cookies.php"?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +12,7 @@
 </head>
 
 <body onload="zoom()">
-<?php
-	require 'test_cookies.php';
-?>
+
 <div id="title">
 	<h1>Your Market</h1>
 </div>
@@ -54,9 +52,10 @@
 	<?php foreach ($_SESSION['item'] as $itemSelected) : ?>
 
 	<div id="item">
-	    <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
+        <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
+             width="200px"/><br><br>
 		<?= $itemSelected[1] ?><br>
-		<?= $itemSelected[3] ?>€<br>
+		<?= $itemSelected[3] ?> Euros<br>
 		<?= $itemSelected[2] ?><br><br>
 		<form action="test_cookies.php?UserId=<?=$itemSelected[0]?>" method="post">
 	        <div id="delItemAccount">
@@ -66,6 +65,28 @@
 	</div>
 	<?php endforeach; ?>
 </div>
+
+<h2>Your Items sold :</h2>
+<div id="grid_container_account">
+    <?php getSellingItemsSold(); ?>
+
+    <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
+
+        <div id="item">
+            <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
+                 width="200px"/><br><br>
+            <?= $itemSelected[1] ?><br>
+            <?= $itemSelected[3] ?> Euros<br>
+            <?= $itemSelected[2] ?><br><br>
+            <!--<form action="test_cookies.php?UserId=<?/*=$itemSelected[0]*/?>" method="post">
+                <div id="delItemAccount">
+                    <input type="submit" name="deleteItem" class="buttonDel" value="Delete">
+                </div>
+            </form>-->
+        </div>
+    <?php endforeach; ?>
+</div>
+
 
 <br>
 <br>

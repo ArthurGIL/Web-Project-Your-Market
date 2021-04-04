@@ -16,6 +16,13 @@ if (isset($_GET["errorCart"])){
 
     }
 }
+
+
+if (isset($_GET["addSuccess"])){
+
+    echo "<script>alert('Item added successfully')</script>";
+
+}
 ?>
 <?php
 

@@ -38,7 +38,7 @@ require 'test_cookies.php';
     <div id="container">
         <?php getAllUsers(); ?>
 
-        <?php foreach ($_SESSION['user'] as $itemSelected) : ?>
+        <?php foreach ($_SESSION['allUser'] as $itemSelected) : ?>
 
             <div id="containerInfo" style="background: palegoldenrod">
                 <b>User id : </b><?= $itemSelected[0] ?>
@@ -71,6 +71,9 @@ require 'test_cookies.php';
         <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
 
             <div id="containerInfo" style="background: lightblue">
+                <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="100px"
+                     width="100px"/>
+                <br>
                 <b>Item id : </b><?= $itemSelected[0] ?>
                 <br>
                 <b>Name : </b><?= $itemSelected[1] ?>

@@ -37,6 +37,8 @@ require "test_cookies.php"?>
 <?php foreach ($_SESSION['itemCart'] as $itemSelected) : ?>
 
     <div id="containerInfo" style="background: palegoldenrod">
+        <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="100px"
+             width="100px"/><br><br>
         <b>Item id : </b><?= $itemSelected[0] ?>
         <br>
         <b>Name : </b><?= $itemSelected[1] ?>
@@ -56,13 +58,7 @@ require "test_cookies.php"?>
 
 <?php endforeach; ?>
 <div id="content">
-	<div id="desc">
-		-----image------<br>
-		-----desc + prix-------
-	</div>
-	<div id="suppr">
-		suprItem
-	</div>
+
 </div>
 <h3>TOTAL : <b id="totalPrice"><?= $_SESSION['totalPrice'][0]?></b> Euros</h3>
 <br>

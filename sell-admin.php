@@ -1,3 +1,5 @@
+
+<?php session_start() ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,52 +33,48 @@
 
 <h2>Sell an item :</h2>
 <div id="content">
-	<div id="sellDesc">
-		<form method="post" enctype="multipart/form-data">
-			<div>
-				<label for="file">Select an image for your product :</label>
-		   		<input type="file" id="file" name="file">
-		 	</div>
-		 	<div>
-		   		<button>Send</button>
-		 	</div>
-		</form>
+    <div id="sellDesc">
+        <form action="test_cookies.php?uploadImage=<?= $_SESSION["user"]["iduser"] ?>&category=<?=$_GET["category"] ?>" method="post"
+              enctype="multipart/form-data">
 
-		<br><br>
-		Description :<br>
-		<TEXTAREA name="Description" rows=8 cols=100 wrap></TEXTAREA><br>
-	</div>
+            <p>Name of the article :</p>
+            <input type="text" name="itemName" required>
+            <br><br>
+            <div>
+                <label>Select Image File:</label>
+                <br>
+                <input type="file" name="image"required>
+
+
+            </div>
+
+
+            <br><br>
+            Description :<br>
+
+            <TEXTAREA name="Description" rows=8 cols=100 wrap="soft" required></TEXTAREA><br>
+    </div>
+    <p>Price : </p>
+    <input type="number" min="0" name="priceItem"required step="0.01">
+
+    <br>
+
+    <p>How would you like to sell it ?</p>
+    <p>Auction : <input type="radio" name="auction" value="Auction" ></p>
+
+    <p>Instant buy : <input type="radio" name="instant" value="Instant buy"></p>
+
+    <p>Best offer : <input type="radio" name="bestOffer" value="Best Offer" ></p>
+
+    <input type="submit" name="submit" value="ADD TO SELL">
 </div>
 
+
+</form>
 <br><br>
 
-<h2>Sell method :</h2>
-<div id="pay_grid">
-	<div id="auction">
-		<h3>Auction :</h3>
-		<label for="number1">Starting bid (€) :</label>
-		<input type="number" id="number1" name="bid" min="0">
-		<br>
-		<br>
-		<button onclick="bid()" class="button3">Accept</button>
-	</div>
 
-	<div id="directPrice">
-		<h3>Instant Buy :</h3>
-		<label for="number1">Asking Price (€) :</label>
-		<input type="number" id="number2" name="dPrice" min="0">
-		<br><br>
-		<button class="button3">Accept</button>
-	</div>
 
-	<div id="bestOffer">
-		<h3>Best Offer :</h3>
-		<label for="number2">Number of days :</label>
-		<input type="number" id="number3" name="bOffer" min="0">
-		<br><br>
-		<button class="button3">Accept</button>
-	</div>
-</div>
 
 <br>
 <br>

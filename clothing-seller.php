@@ -49,7 +49,7 @@ require 'test_cookies.php';
 
 <br>
 <div id="sell">
-    <a href="sell-seller.php?type=clothes" title="Sell">
+    <a href="sell-seller.php?category=2" title="Sell">
         <button class="button4">Sell</button>
     </a>
 </div>
@@ -58,9 +58,11 @@ require 'test_cookies.php';
     <?php getClothItems(); ?>
 
     <?php foreach ($_SESSION['item'] as $itemSelected) : ?>
-
         <div id="item">
-            <img id="objPos" src="peugeot-208.jpg" length=200 width=200><br><br>
+            <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
+                 width="200px"/>
+
+            <br><br>
             <?= $itemSelected[1] ?><br>
             <?= $itemSelected[3] ?><br><br>
             <a href="details-seller.php?idItemDetail=<?= $itemSelected[0] ?>" title="Car Details">

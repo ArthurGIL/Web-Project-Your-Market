@@ -34,7 +34,7 @@ if (isset($_GET["idItemDetail"])) {
 <hr>
 
 <div id="nav">
-    <a href="home-buyer.php" title="Home">
+    <a href="home.php" title="Home">
         <button class="buttonBack">< Back</button>
     </a>
 </div>
@@ -44,7 +44,10 @@ if (isset($_GET["idItemDetail"])) {
 
 <div id="content">
     <h3>Name : <?= $_SESSION["itemDetail"] [1] ?></h3>
-    -----image-----
+    <img src="data:image/jpeg;base64,<?= base64_encode($_SESSION["itemDetail"] [5]) ?>" height="300px"
+         width="300px"/>
+
+
     <br>
     <h1>Price : </h1>
     <?= $_SESSION["itemDetail"] [3] ?> Euros
