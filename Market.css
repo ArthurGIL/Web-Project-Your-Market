@@ -362,6 +362,7 @@ h3{
 }
 
 #sell {
+  position:relative;
   margin-left: 40px;
 }
 
@@ -388,8 +389,8 @@ h3{
 
 #item{
   position:relative;
-  margin-left:10%;
-  margin-right:10%;
+  margin-left:40px;
+  margin-right: 10%;
   margin-top: 30px;
   width:370px;
   height:515px;
@@ -417,7 +418,7 @@ h3{
 #right {
   position: absolute;
   left: 60%;
-  bottom: 34%;
+  top: 400px;
 }
 
 #delItemAdmin {

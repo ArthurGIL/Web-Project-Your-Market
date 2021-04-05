@@ -9,6 +9,15 @@
         function zoom() {
             document.body.style.zoom = "90%"
         }
+        function check() {
+            if (document.getElementById('anAuction').checked) {
+                document.getElementById('startBid').required = true;
+                document.getElementById('date').required = true;
+            }
+            if (document.getElementById('aDirectPrice').checked) {
+                document.getElementById('dPrice').required = true;
+            }
+        }
     </script>
 </head>
 
@@ -42,47 +51,60 @@
         <form action="test_cookies.php?uploadImage=<?= $_SESSION["user"]["iduser"] ?>&category=<?=$_GET["category"] ?>" method="post"
               enctype="multipart/form-data">
 
-            <p>Name of the article :</p>
-            <input type="text" name="itemName" required>
+            <b>Name of the article : </b><input type="text" name="itemName" required>
             <br><br>
             <div>
-                <label>Select Image File:</label>
-                <br>
-                <input type="file" name="image" required>
-
-
+                <label><b>Select Image File :</b></label>
+                <input type="file" name="image"required>
             </div>
-
-
-            <br><br>
-            Description :<br>
-
+            <br>
+            <b>Description :</b><br>
             <TEXTAREA name="Description" rows=8 cols=100 wrap="soft" required></TEXTAREA><br>
     </div>
-    <p>Price : </p>
-    <input type="number" min="0" name="priceItem"required step="0.01">
-
-    <br>
-
-    <p>How would you like to sell it ?</p>
-    <p>Auction : <input type="radio" name="auction" value="Auction" ></p>
-
-    <p>Instant buy : <input type="radio" name="instant" value="Instant buy"></p>
-
-   <p>Best offer : <input type="radio" name="bestOffer" value="Best Offer" ></p>
-
-    <input type="submit" name="submit" value="ADD TO SELL">
 </div>
 
-
-</form>
 <br><br>
 
+<h2>How would you like to sell it ?</h2>
+<div id="pay_grid">
+    <div id="auction">
+        <h3>Auction :</h3>
+        <input type="radio" name="paymentMethod" value="Auction" id="anAuction" >
+        <b id="cBid" class="data">Launch an Auction</b>
+        <br><br>
+        Enter a starting price :
+        <input type="number" id="startBid" name="startBid"> Euros
+        <br>
+        Auction ends the :
+        <input type="date" id="date" name="dateStart">
+    </div>
 
+    <div id="directPrice">
+        <h3>Instant Buy :</h3>
+        <input type="radio" name="paymentMethod" value="Instant buy" id="aDirectPrice" checked>
+        <b id="aPrice" class="data">Launch a normal sale</b>
+        <br><br>
+        Asking price :
+        <input type="number" id="dPrice" name="dPrice"> Euros
+    </div>
 
+    <div id="bestOffer">
+        <h3>Best Offer :</h3>
+        <input type="radio" name="paymentMethod" value="Best Offer" id="aBestOffer" >
+        <b id="cBid" class="data">Ask for the best offers</b>
+    </div>
+</div>
+<br>
+<br>
+<input type="submit" name="submit" value="ADD TO SELL" class="button4" onclick="check()">
+
+</form>
 
 <br>
 <br>
+<br>
+<br>
+
 <div id="footer">
     <div id="footText">Buyer - Seller</div>
     <div id="footBlock"></div>

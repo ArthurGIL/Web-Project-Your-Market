@@ -42,23 +42,16 @@ if (isset($_GET["idItemDetail"])) {
 <hr>
 <br>
 
+<h3>Name : <?= $_SESSION["itemDetail"] [1] ?></h3>
 <div id="content">
-    <h3>Name : <?= $_SESSION["itemDetail"] [1] ?></h3>
     <img src="data:image/jpeg;base64,<?= base64_encode($_SESSION["itemDetail"] [5]) ?>" height="300px"
          width="300px"/>
-
-
-    <br>
-    <h1>Price : </h1>
-    <?= $_SESSION["itemDetail"] [3] ?> Euros
     <br>
 </div>
-<h2>Description :</h2>
 
+<h2>Description :</h2>
 <div id="content">
     <?= $_SESSION["itemDetail"] [2] ?>
-
-    <?= $_SESSION["itemDetail"] [6] ?>
 </div>
 
 <br>
