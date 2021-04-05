@@ -61,10 +61,6 @@ require "test_cookies.php"?>
     $idItemDeleteAfterBuy = array();
     foreach ($_SESSION['itemCart'] as $itemSelected){
         array_push($idItemDeleteAfterBuy,$itemSelected[0]);
-       
-    }
-    foreach ($idItemDeleteAfterBuy as $itemSelected){
-       echo $itemSelected;
     }
     ?>
 

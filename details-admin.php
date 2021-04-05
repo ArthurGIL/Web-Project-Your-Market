@@ -57,10 +57,13 @@ if (isset($_GET["idItemDetail"])) {
 <br>
 
 
-<a href="test_cookies.php?idItemCart=<?= $_SESSION["itemDetail"] [0] ?>&idUserCart=<?= $_SESSION["user"] ["iduser"] ?>"
-   title="Car Details">
-    <button class="button2">Add to cart</button>
-</a>
+<?php if ($_SESSION["itemDetail"] [4] != $_SESSION["user"]["iduser"]):  ?>
+
+    <a href="test_cookies.php?idItemCart=<?= $_SESSION["itemDetail"] [0] ?>&idUserCart=<?= $_SESSION["user"]["iduser"] ?>&idUserSeller=<?= $_SESSION["itemDetail"] [4] ?>"
+       title="Car Details">
+        <button class="button2" style="width: 50%">Add to cart</button>
+    </a>
+<?php endif ?>
 
 <br>
 

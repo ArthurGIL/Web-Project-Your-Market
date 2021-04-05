@@ -43,7 +43,7 @@ require "test_cookies.php"
         <br><br>
         <b id="aMail">Password : </b><?= $_SESSION["user"]["psw"]?>
         <br><br>
-        <b id="aPay">Payement : </b>
+        <b id="aPay">Payement : </b><?= $_SESSION["payment"]["cardType"]?>
     </div>
 
 

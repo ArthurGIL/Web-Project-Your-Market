@@ -41,28 +41,12 @@
     <br>
     <form action="test_cookies.php" method="post">
 
-        Your Name : <input type="text" name="name">
+        Your Name : <input type="text" name="name" required>
         <br><br>
-        Your E-mail : <input type="e-mail" name="mail">
+        Your E-mail : <input type="e-mail" name="mail" required>
         <br><br>
-        Your Password : <input type="Password" name="psw">
+        Your Password : <input type="Password" name="psw" required>
         <br><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <br><br>
         <input type="submit" name="submitAccount" class="button4">

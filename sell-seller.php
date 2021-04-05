@@ -48,7 +48,7 @@
             <div>
                 <label>Select Image File:</label>
                 <br>
-                <input type="file" name="image"required>
+                <input type="file" name="image" required>
 
 
             </div>

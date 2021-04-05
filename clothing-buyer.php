@@ -67,7 +67,7 @@ require 'test_cookies.php';
             <br><br>
             <b>Type of sell :</b> <?= $itemSelected[6] ?>
             <br><br>
-            <a href="details-admin.php?idItemDetail=<?= $itemSelected[0] ?>" title="Details">
+            <a href="details-buyer.php?idItemDetail=<?= $itemSelected[0] ?>" title="Details">
                 <button class="button2">More Details</button>
             </a>
             <br>
