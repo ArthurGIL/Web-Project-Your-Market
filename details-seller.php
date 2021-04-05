@@ -23,10 +23,10 @@ if (isset($_GET["idItemDetail"])) {
 </div>
 <div id="sub"><i>- Details</i></div>
 <div id="optButtons">
-    <a href="yourAccount-buyer.php" title="YourAccount">
+    <a href="yourAccount-seller.php" title="YourAccount">
         <button class="buttonAccount">Your Account</button>
     </a>
-    <a href="cart-buyer.php" title="Cart">
+    <a href="cart-seller.php" title="Cart">
         <button class="buttonCart">Cart</button>
     </a>
 </div>

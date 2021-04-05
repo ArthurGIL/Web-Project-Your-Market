@@ -188,8 +188,6 @@ if (isset($_GET["itemID"])) {
 
 function deleteItem($idItemChosen)
 {
-
-
     $user = 'root';
     $password = ''; //To be completed if you have set a password to root
     $database = 'db_test'; //To be completed to connect to a database. The database must exist.
@@ -212,6 +210,9 @@ function deleteItem($idItemChosen)
 
         if ($_SESSION["user"]["admin"] == 1) {
             header('Location:admin.php');
+        }
+        if ($_SESSION["user"]["seller"] == 1) {
+            header('Location:yourAccount-seller.php');
         }
     }
 }
