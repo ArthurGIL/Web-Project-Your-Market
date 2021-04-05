@@ -433,3 +433,23 @@ h3{
   position: absolute;
   left: 39%;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+thead th, tfoot th {
+  font-family: 'Rock Salt', cursive;
+}
+
+th {
+  letter-spacing: 2px;
+}
+
+td {
+  letter-spacing: 1px;
+}
+
+tbody td {
+  text-align: left;
+}

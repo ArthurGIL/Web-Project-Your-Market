@@ -1065,7 +1065,13 @@ function addItem($idUser)
 
     $itemName = $_POST["itemName"];
     $description = $_POST["Description"];
-    $price = $_POST["priceItem"];
+
+    if (isset($_POST["priceItem"])) {
+        $price = $_POST["priceItem"];
+    }else {
+        $price = null;
+    }
+
     if (isset($_POST["auction"])) {
         $typeSell = $_POST["auction"];
     }

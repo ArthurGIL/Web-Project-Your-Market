@@ -69,7 +69,7 @@
         <b id="cBid" class="data">Launch an Auction</b>
         <br><br>
         Enter a starting price :
-        <input type="number" id="startBid" name="startBid"> Euros
+        <input type="number" id="startBid" name="priceItem"> Euros
         <br>
         Auction ends the :
         <input type="date" id="date" name="dateStart">
@@ -81,7 +81,7 @@
         <b id="aPrice" class="data">Launch a normal sale</b>
         <br><br>
         Asking price :
-        <input type="number" id="dPrice" name="dPrice"> Euros
+        <input type="number" id="dPrice" name="priceItem"> Euros
     </div>
 
     <div id="bestOffer">
