@@ -41,7 +41,7 @@
     <br>
     <form action="test_cookies.php" method="post">
 
-       <h1>Welcome <?= $_SESSION["user"]["name"]?>, please enter your payment info.</h1>
+       <h1>Welcome, please enter your payment info.</h1>
 
 
         Address 1: <input type="text" name="address1" required>
@@ -60,8 +60,8 @@
         <br><br>
 
         Phone number : <input type="tel"  name="phone"
-                              pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}"required>
-        <small>Format: 12-34-56-78-90</small>
+                              pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"required>
+        <small>Format: 12 34 56 78 90</small>
         <br><br>
 
         Card Type : <select name="cardType" id="pet-select" required >
@@ -75,8 +75,8 @@
         <br><br>
 
         Card number : <input type="tel" name="cardNumber"
-                             pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}"required>
-        <small>Format: 0000-0000-0000-0000</small>
+                             pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"required>
+        <small>Format: 0000 0000 0000 0000</small>
         <br><br>
 
         Name on card : <input type="text" name="cardName"required>

@@ -211,7 +211,7 @@ function deleteItem($idItemChosen)
         if ($_SESSION["user"]["admin"] == 1) {
             header('Location:admin.php');
         }
-        if ($_SESSION["user"]["seller"] == 1) {
+        if ($_SESSION["user"]["seller"] == 1 && $_SESSION["user"]["admin"] == 0) {
             header('Location:yourAccount-seller.php');
         }
     }
@@ -299,7 +299,9 @@ function getAllItems()
                     $row["description"],
                     $row["price"],
                     $row["idUserSeller"],
-                    $row["photo"]);
+                    $row["photo"],
+                    $row["typeSell"]
+                    );
 
 
                 array_push($_SESSION["item"], $itemRow);
@@ -914,15 +916,17 @@ ON  cart.iditemCart = item.iditem  and cart.idUserBuyerCart = ?;
 
         while ($row = $result->fetch_assoc()) {
 
-
-            $totalPrice += $row["price"];
+            if($row["price"] != '') {
+                $totalPrice += $row["price"];
+            }
 
             $itemRow = array($row["iditem"],
                 $row["name"],
                 $row["description"],
                 $row["price"],
                 $row["type"],
-                $row["photo"]);
+                $row["photo"],
+                $row["typeSell"]);
 
             array_push($_SESSION["itemCart"], $itemRow);
         }
@@ -1066,22 +1070,15 @@ function addItem($idUser)
 
     $itemName = $_POST["itemName"];
     $description = $_POST["Description"];
-
     if (isset($_POST["priceItem"])) {
         $price = $_POST["priceItem"];
     }else {
         $price = null;
     }
+    if (isset($_POST["paymentMethod"])) {
+        $typeSell = $_POST["paymentMethod"];
+    }
 
-    if (isset($_POST["auction"])) {
-        $typeSell = $_POST["auction"];
-    }
-    if (isset($_POST["instant"])) {
-        $typeSell = $_POST["instant"];
-    }
-    if (isset($_POST["bestOffer"])) {
-        $typeSell = $_POST["bestOffer"];
-    }
 
     if (isset($_GET["category"])) {
         if ($_GET["category"] == 1) {

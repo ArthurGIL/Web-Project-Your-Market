@@ -80,7 +80,10 @@ require 'test_cookies.php';
                 <br>
                 <b>Descritpion : </b><?= $itemSelected[2] ?>
                 <br>
-                <b>Price : </b><?= $itemSelected[3] ?>
+                <b>Price : </b>
+                <?php if ($itemSelected [6] == "Instant buy"):  ?>
+                    <?= $itemSelected[3] ?>  Euros
+                <?php endif ?>
                 <br>
 
                 <form action="test_cookies.php?itemID=<?=$itemSelected[0]?>" method="post">

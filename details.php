@@ -27,7 +27,7 @@ if (isset($_GET["idItemDetail"])) {
         <button class="buttonConnex">Connexion</button>
     </a>
     <a href="cart-buyer.php" title="Cart">
-        <button class="buttonCart">Cart</button>
+        <button class="buttonCart" disabled>Cart</button>
     </a>
 </div>
 
@@ -52,7 +52,6 @@ if (isset($_GET["idItemDetail"])) {
 <h2>Description :</h2>
 <div id="content">
     <?= $_SESSION["itemDetail"] [2] ?>
-</div> $_SESSION["itemDetail"] [2] ?>
 </div>
 
 <br>
@@ -70,7 +69,7 @@ if (isset($_GET["idItemDetail"])) {
             <input type="number" id="number1" name="bid" min="">
             <br>
             <br>
-            <button onclick="bid()" class="button3">Bid</button>
+            <button onclick="bid()" class="button3" disabled>Bid</button>
         </div>
 
     <?php endif;?>
@@ -81,7 +80,7 @@ if (isset($_GET["idItemDetail"])) {
             <b id="aPrice" class="data">Asking Price :</b>
             <br>
             <br>
-            <button onclick="buy()" class="button3">Buy</button>
+            <button onclick="buy()" class="button3" disabled>Buy</button>
         </div>
 
     <?php endif ?>
@@ -92,7 +91,7 @@ if (isset($_GET["idItemDetail"])) {
             <input type="number" id="number2" name="bOffer">
             <br>
             <br>
-            <button onclick="offer()" class="button3">Offer</button>
+            <button onclick="offer()" class="button3" disabled>Offer</button>
         </div>
 
     <?php endif ?>
@@ -101,13 +100,7 @@ if (isset($_GET["idItemDetail"])) {
 <br>
 <br>
 <div id="footer">
-    <div id="footText">Buyer</div>
-    <div id="footBlock"></div>
-    <div id="Deconnexion">
-        <a href="test_cookies.php?deco=1" title="Deconnexion">
-            <button class="buttonDeco">Deconnexion</button>
-        </a>
-    </div>
+    <div id="footText">Connexion</div>
 </div>
 
 

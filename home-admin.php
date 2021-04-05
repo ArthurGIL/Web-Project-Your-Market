@@ -92,11 +92,13 @@ if (isset($_SESSION["user"]) && !$_SESSION["user"]["admin"] == 1) {
 <br>
 
 <h2>About <i>Your Market ©</i></h2>
+<br>
 <div id="content">
-    <p>Liahozco aochalcalc cazcma caoc oacoazcaocamcacpajcpazjcpajzcp azuc achoazcaoch aichazchaca ac aacaochaiochao
-        zicha zohcaoiczhahcaoicha oazhoahcaochaoizchaozc oachzaochao.
-        Jvzepmvçzvzuvpuzvuzevuzv zvuzvuzepvuzpvuz vzvzuv zevzoemv uzoveu zevzv.
-        Apjvpervoev.
+    <p style="font-size:  20px">
+        Welcome to our website !<br>
+        <br>
+        Here, you can buy and sell cars or clothing you don't use anymore.
+        We have three different options to sell your items : be sure to check the <i>Auction</i>, the <i>Instant buy</i> and the <i>Best Offer</i> to sell your items at the price you want.
     </p>
 </div>
 

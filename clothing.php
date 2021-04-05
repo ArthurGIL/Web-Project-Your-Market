@@ -63,7 +63,9 @@ require 'test_cookies.php';
             <img src="data:image/jpeg;base64,<?= base64_encode($itemSelected[5]) ?>" height="200px"
                  width="200px"/><br>
             <h3><?= $itemSelected[1] ?></h3>
-            <?= $itemSelected[3] ?> Euros
+            <?php if ($itemSelected [6] == "Instant buy"):  ?>
+                <?= $itemSelected[3] ?>  Euros
+            <?php endif ?>
             <br><br>
             <b>Type of sell :</b> <?= $itemSelected[6] ?>
             <br><br>

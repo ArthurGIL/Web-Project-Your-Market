@@ -45,7 +45,7 @@ require "test_cookies.php"?>
             <br>
             <b>Description : </b><?= $itemSelected[2] ?>
             <br>
-            <b>Price : </b><?= $itemSelected[3] ?> Euros
+            <b>Price : </b><?php if ($itemSelected [6] == "Instant buy"):  ?><?= $itemSelected[3] ?>  Euros<?php endif ?>
             <br>
             <b>Type : </b><?= $itemSelected[4] ?>
 

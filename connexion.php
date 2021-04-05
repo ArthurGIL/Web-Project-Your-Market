@@ -24,7 +24,7 @@ if (isset($_SESSION["user"])){
         <button class="buttonConnex">Connexion</button>
     </a>
     <a href="cart.php" title="Cart">
-        <button class="buttonCart">Cart</button>
+        <button class="buttonCart" disabled>Cart</button>
     </a>
 </div>
 

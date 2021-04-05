@@ -11,7 +11,6 @@
         }
         function check() {
             if (document.getElementById('anAuction').checked) {
-                document.getElementById('startBid').required = true;
                 document.getElementById('date').required = true;
             }
             if (document.getElementById('aDirectPrice').checked) {
@@ -72,9 +71,6 @@
         <input type="radio" name="paymentMethod" value="Auction" id="anAuction" >
         <b id="cBid" class="data">Launch an Auction</b>
         <br><br>
-        Enter a starting price :
-        <input type="number" id="startBid" name="startBid"> Euros
-        <br>
         Auction ends the :
         <input type="date" id="date" name="dateStart">
     </div>
@@ -85,7 +81,7 @@
         <b id="aPrice" class="data">Launch a normal sale</b>
         <br><br>
         Asking price :
-        <input type="number" id="dPrice" name="dPrice"> Euros
+        <input type="number" id="dPrice" name="priceItem"> Euros
     </div>
 
     <div id="bestOffer">

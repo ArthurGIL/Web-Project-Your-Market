@@ -44,10 +44,12 @@ require 'test_cookies.php';
 
 
 <div id="content">
-
-
-
-
+    <p style="font-size:  20px">
+        Welcome to our website !<br>
+        <br>
+        Here, you can buy and sell cars or clothing you don't use anymore.
+        We have three different options to sell your items : be sure to check the <i>Auction</i>, the <i>Instant buy</i> and the <i>Best Offer</i> to sell your items at the price you want.
+    </p>
 </div>
 
 <br>
