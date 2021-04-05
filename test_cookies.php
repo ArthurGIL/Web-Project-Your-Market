@@ -708,23 +708,7 @@ function becomeSeller()
 ?>
 
 
-<?php /*foreach ($_SESSION['itemAuction'] as $itemSelected) : */ ?><!--
 
-    <div id="containerInfo" style="background: palegoldenrod">
-        <b>User id : </b><? /*= $itemSelected[0] */ ?>
-        <br>
-        <b>Name : </b><? /*= $itemSelected[1] */ ?>
-        <br>
-        <b>Email : </b><? /*= $itemSelected[2] */ ?>
-        <br>
-        <b>Password : </b><? /*= $itemSelected[3] */ ?>
-        <br>
-        <b>Seller : </b><? /*= $itemSelected[4] */ ?>
-
-
-    </div>
-
---><?php /*endforeach; */ ?>
 
 <!--Contact message -->
 <?php
@@ -1238,6 +1222,62 @@ function addPaymentUser($idUserPayment)
 
 ?>
 
+<!--get payment for session in yourAccount-->
+
+<?php
+
+function getPaymentInfo(){
+    $user = 'root';
+    $password = ''; //To be completed if you have set a password to root
+    $database = 'db_test'; //To be completed to connect to a database. The database must exist.
+    $port = NULL; //Default must be NULL to use default port
+    $database = 'db_test';
+
+
+    $mysqli = new mysqli('127.0.0.1', $user, $password, $database, $port);
+
+
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+    } else {
+
+        $statement = $mysqli->prepare("Select * from payment where idUserPayment = ?;");
+        $statement->bind_param("i", $_SESSION["user"]["iduser"]);
+        $statement->execute();
+        $result = $statement->get_result();
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+
+            $_SESSION["paymentInfo"] = [];
+
+            while ($row = $result->fetch_assoc()) {
+
+
+                $_SESSION["paymentInfo"] = [$row["idpayment"],
+                    $row["idUserPayment"],
+                    $row["address1"],
+                    $row["address2"],
+                    $row["city"],
+                    $row["postalCode"],
+                    $row["country"],
+                    $row["phoneNumber"],
+                    $row["typeCard"],
+                    $row["cardNumber"],
+                    $row["nameCard"],
+                    $row["expDate"],
+                    $row["digiCode"]];
+
+            }
+        } else {
+            header('Location:payment.php');
+        }
+        $mysqli->close();
+    }
+}
+
+
+?>
 
 
 

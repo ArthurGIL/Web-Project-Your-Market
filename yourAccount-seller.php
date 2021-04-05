@@ -1,4 +1,6 @@
-
+<?php
+require 'test_cookies.php';
+?>
 
 <!DOCTYPE html>
 <html>
@@ -13,9 +15,7 @@
 </head>
 
 <body onload="zoom()">
-<?php
-	require 'test_cookies.php';
-?>
+
 <div id="title">
 	<h1>Your Market</h1>
 </div>
@@ -42,10 +42,105 @@
         <br><br>
         <b id="aMail">Password : </b><?= $_SESSION["user"]["psw"]?>
         <br><br>
-        <b id="aPay">Payement : </b><?= $_SESSION["payment"]["cardType"]?>
+
     </div>
 </div>
 <br>
+
+<table border="1" >
+<?php getPaymentInfo(); ?>
+    <tr id="address1">
+        <td>
+            Address 1 :
+        </td>
+        <td>
+        <?= $_SESSION["paymentInfo"][2] ?>
+        </td>
+    </tr>
+    <tr id="address2">
+        <td>
+            address 2 :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][3] ?>
+        </td>
+    </tr>
+    <tr id="city">
+        <td>
+            City :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][4] ?>
+        </td>
+    </tr>
+    <tr id="postalCode">
+        <td>
+            Postal code :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][5] ?>
+        </td>
+    </tr>
+    <tr id="country">
+        <td>
+            Country :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][6] ?>
+        </td>
+    </tr>
+    <tr id="phone">
+        <td>
+           Phone number :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][7] ?>
+        </td>
+    </tr>
+    <tr id="typeCard">
+        <td>
+            Type of your card :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][8] ?>
+        </td>
+    </tr>
+    <tr id="cardNumber">
+        <td>
+            Your card number :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][9] ?>
+        </td>
+    </tr>
+    <tr id="nameCard">
+        <td>
+            Name on the card :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][10] ?>
+        </td>
+    </tr>
+
+    <tr id="expDate">
+        <td>
+            Expiration date :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][11] ?>
+        </td>
+    </tr>
+    <tr id="digiCode">
+        <td>
+            Secret code :
+        </td>
+        <td>
+            <?= $_SESSION["paymentInfo"][12] ?>
+        </td>
+    </tr>
+
+
+</table>
 
 <h2>Your Items :</h2>
 <div id="grid_container_account">
